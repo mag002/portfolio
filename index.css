@@ -1,0 +1,79 @@
+:root {
+  --pixel-size: 3;
+}
+
+* {
+  margin: 0px;
+  box-sizing: border-box;
+}
+#coors{
+  color:white;
+}
+canvas {
+    border: 1px solid red;
+    position: absolute;
+    background: #000;
+}
+.root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
+  min-height: 100vh;
+  background: black;
+}
+#mapContainer {
+  width: 50vw;
+  height: 50vw;
+  border: 1px solid white;
+  background: grey;
+  position: relative;
+  overflow: hidden;
+}
+
+.Character {
+  width: calc(32px * var(--pixel-size));
+  height: calc(32px * var(--pixel-size));
+  overflow: hidden;
+  position: absolute;
+  top:calc(50% - 32px);
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+
+.moving{
+  transform: translate3d(-75%, 0, 0);
+  animation: moveSpritesheet 1s steps(4) infinite;
+}
+.Character_spritesheet {
+  width: calc(128px * var(--pixel-size));
+  position: absolute;
+}
+.Character_shadow {
+  position: absolute;
+  width: calc(32px * var(--pixel-size));
+  height: calc(32px * var(--pixel-size));
+}
+
+.pixelart {
+  image-rendering: pixelated;
+}
+
+.face-right {
+  top: calc(-32px * var(--pixel-size));
+}
+.face-up {
+  top: calc(-64px * var(--pixel-size));
+}
+.face-left {
+  top: calc(-96px * var(--pixel-size));
+}
+
+@keyframes moveSpritesheet {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
