@@ -1,93 +1,144 @@
 // Declaration
 const defaultSquare = 32;
-const mapSize = 10;
 const stepSpeed = 3; // n px for each press
 const unmovableZone = [
-  {
-    x: 96,
-    y: 96,
-    sizeX: 2,
-    sizeY: 1,
-  },
-  {
-    x: 128,
-    y: 128,
-    sizeX: 1,
-    sizeY: 2,
-  },
+  // {
+  //   x: 96,
+  //   y: 96,
+  //   sizeX: 2,
+  //   sizeY: 1,
+  // },
+  // {
+  //   x: 128,
+  //   y: 128,
+  //   sizeX: 1,
+  //   sizeY: 2,
+  // },
 ];
-const unmovableZoneArray = {
-  left: [],
-  right: [],
-  up: [],
-  down: [],
-};
-const NPCs = [
+const maps = [
   {
-    name: "john",
-    x: defaultSquare * 2,
-    y: defaultSquare * 2,
-    interaction: {
-      talk: "Hi I'm John, I will introduce you to Phuc profile",
-      action: "open_profile",
+    id:'map_0',
+    name:'out_side',
+    size:[20,20],
+    source: 'map_3.png',
+    unmovableZone : [
+      {
+      x: 0,
+      y: 0,
+      sizeX: 20,
+      sizeY: 5,
     },
-    isNear: false,
-  },
-];
+    // {
+    //   x:0,
+    //   y:3*defaultSquare,
+    //   sizeX:1,
+    //   sizeY:2
+    // },
+    // {
+    //   x:3*defaultSquare,
+    //   y:3*defaultSquare,
+    //   sizeX:1,
+    //   sizeY:2
+    // }
+    ],
+    NPCs: [
+      {
+        id: 'npc_0',
+        name: "john",
+        x: defaultSquare * 10,
+        y: defaultSquare * 10,
+        src: 'cop_masked.png',
+        interaction: {
+          talk: "Hi there! Please put the mask on to join",
+          action: "wear_mask",
+        },
+        isNear: false,
+      }
+    ]
+  }
+]
+let currentMap = maps[0]
+console.log(currentMap);
+// const NPCs = [
+//   {
+//     id: 'npc_0',
+//     name: "john",
+//     x: defaultSquare *3,
+//     y: defaultSquare * 0,
+//     src: 'cop_masked.png',
+//     interaction: {
+//       talk: "Hi there! Please put the mask on to join",
+//       action: "wear_mask",
+//     },
+//     isNear: false,
+//   },
+//   // {
+//   //   id: 'npc_1',
+//   //   name: "quick",
+//   //   x: defaultSquare * 4,
+//   //   y: defaultSquare * 1,
+//   //   interaction: {
+//   //     talk: "Yo! I'm Quick, Looking for Phuc's Projects?",
+//   //     action: "open_profile",
+//   //   },
+//   //   isNear: false,
+//   // },
+// ];
 const character = {
-  x: 0,
-  y: 0,
+  x: 1 * defaultSquare,
+  y: 6 * defaultSquare,
+  mask_on: false
 };
-const map = {
-  name: "home",
-  src: "",
-};
+// const map = {
+//   name: "home",
+//   src: "",
+// };
 
 // DOM
 const canvasDOM = document.getElementById("map");
+const canvasBoxDOM = document.getElementById("canvasBox");
 const mapContainerDOM = document.getElementById("mapContainer");
 const mainCharactorDOM = document.getElementById("mainCharacter");
 
 const movingCanvas = () => {
-  canvasDOM.style.top =
+  canvasBoxDOM.style.top =
     mapContainerDOM.offsetHeight / 2 - (character.y + defaultSquare / 2) + "px";
-  canvasDOM.style.left =
+  canvasBoxDOM.style.left =
     mapContainerDOM.offsetWidth / 2 - (character.x + defaultSquare / 2) + "px";
 };
 const checkMoveable = () => {
+  const {unmovableZone,NPCs} = currentMap; 
   let touch = false;
   unmovableZone.forEach((thing) => {
     if (
-      character.x <= (thing.x + defaultSquare*thing.sizeX) &&
-      thing.x <= character.x + defaultSquare &&
-      character.y <= (thing.y+ defaultSquare*thing.sizeY)  &&
-      thing.y <= character.y + defaultSquare
+      character.x <= thing.x + defaultSquare * thing.sizeX - stepSpeed &&
+      thing.x <= character.x + defaultSquare - stepSpeed &&
+      character.y <= thing.y + defaultSquare * thing.sizeY - stepSpeed &&
+      thing.y <= character.y + defaultSquare - stepSpeed
     ) {
       touch = true;
     }
-    if(thing.npcIndex || thing.npcIndex === 0 ){
-      checkNpcZone(NPCs[thing.npcIndex])
+    if (thing.npcIndex || thing.npcIndex === 0) {
+      checkNpcZone(NPCs[thing.npcIndex]);
     }
   });
   return !touch;
 };
 const checkNpcZone = (npc) => {
-  console.log(npc);
-  if(
+  if (
     character.x <= npc.x + defaultSquare * 1.5 &&
     npc.x <= character.x + defaultSquare * 1.5 &&
     character.y <= npc.y + defaultSquare * 1.5 &&
     npc.y <= character.y + defaultSquare * 1.5
-    ){
-      npc.isNear  = true;
-  console.log(npc.name +  'near');
+  ) {
+    npc.isNear = true;
+    document.getElementById(npc.id+'_chat_box').classList.remove('hide')
+  } else {
+    npc.isNear = false;
+    document.getElementById(npc.id+'_chat_box').classList.add('hide')
 
-    } else {
-      npc.isNear = false
-  console.log(npc.name +  'far');
-
-    }
-}
+  }
+};
 const moveLeft = () => {
   mainCharactorDOM.setAttribute(
     "class",
@@ -122,7 +173,7 @@ const moveRight = () => {
     "class",
     "Character_spritesheet moving pixelart face-right"
   );
-  if (character.x < defaultSquare * mapSize - defaultSquare) {
+  if (character.x < defaultSquare * currentMap.size[0] - defaultSquare) {
     character.x = character.x + stepSpeed;
     if (!checkMoveable()) {
       return (character.x = character.x - stepSpeed);
@@ -136,7 +187,7 @@ const moveDown = () => {
     "class",
     "Character_spritesheet moving pixelart face-down"
   );
-  if (character.y < defaultSquare * mapSize - defaultSquare) {
+  if (character.y < defaultSquare * currentMap.size[1] - defaultSquare) {
     character.y = character.y + stepSpeed;
     if (!checkMoveable()) {
       return (character.y = character.y - stepSpeed);
@@ -146,13 +197,29 @@ const moveDown = () => {
   }
 };
 
+const action = () => {
+  const {NPCs} = currentMap; 
+  NPCs.forEach(npc=>{
+    if (
+      character.x <= npc.x + defaultSquare * 1.5 &&
+      npc.x <= character.x + defaultSquare * 1.5 &&
+      character.y <= npc.y + defaultSquare * 1.5 &&
+      npc.y <= character.y + defaultSquare * 1.5
+    ) {
+      alert(npc.interaction.action)
+    } 
+  })
+}
+
 window.onresize = function () {
   drawCanvas();
   movingCanvas();
 };
 document.addEventListener("keydown", (e) => {
   e = e || window.event;
-
+  if (["38", "40", "37", "39"].indexOf(e.keyCode.toString()) > -1){
+    e.preventDefault()
+  }
   if (e.keyCode == "38") {
     // up arrow
     moveUp();
@@ -165,6 +232,9 @@ document.addEventListener("keydown", (e) => {
   } else if (e.keyCode == "39") {
     // right arrow
     moveRight();
+  } else if (e.keyCode == "32") {
+    // right arrow
+    action();
   }
 });
 document.addEventListener("keyup", (e) => {
@@ -174,52 +244,64 @@ document.addEventListener("keyup", (e) => {
 
 // DRAW
 ctx = canvasDOM.getContext("2d");
-canvasDOM.setAttribute("width", defaultSquare * mapSize);
-canvasDOM.setAttribute("height", defaultSquare * mapSize);
+canvasDOM.setAttribute("width", defaultSquare * currentMap.size[0]);
+canvasDOM.setAttribute("height", defaultSquare *  currentMap.size[1]);
 ctx.fillStyle = "#00ff00";
 ctx.strokeStyle = "#ff0000";
 //draw X
 // draw grid
 const drawGrid = () => {
-  for (i = 0; i <= mapSize; i++) {
+  for (i = 0; i <= currentMap.size[1]; i++) {
     ctx.beginPath();
     ctx.moveTo(0, i * defaultSquare);
-    ctx.lineTo(defaultSquare * mapSize, i * defaultSquare);
+    ctx.lineTo(defaultSquare * currentMap.size[1], i * defaultSquare);
     ctx.stroke();
   }
   // draw Y
-  for (i = 0; i <= mapSize; i++) {
+  for (i = 0; i <= currentMap.size[1]; i++) {
     ctx.beginPath();
     ctx.moveTo(i * defaultSquare, 0);
-    ctx.lineTo(i * defaultSquare, defaultSquare * mapSize);
+    ctx.lineTo(i * defaultSquare, defaultSquare * currentMap.size[1]);
     ctx.stroke();
   }
 };
 // draw character
 const drawCharacter = (character) => {
-  ctx.beginPath();
-
-  ctx.arc(
-    character.x + defaultSquare / 2,
-    character.y + defaultSquare / 2,
-    defaultSquare / 2,
-    0,
-    2 * Math.PI
-  );
-  ctx.fillStyle = "#00ff00";
-  if(character.isNear){
-    console.log('zooo');
-    ctx.fillStyle = '#0000ff'
+  // ctx.beginPath();
+  // ctx.arc(
+  //   character.x + defaultSquare / 2,
+  //   character.y + defaultSquare / 2,
+  //   defaultSquare / 2,
+  //   0,
+  //   2 * Math.PI
+  // );
+  // ctx.fill();
+  
+  // Only NPC have id
+  if(character.id && !character.renderedChat){
+    drawChatBox(character);
   }
-  ctx.fill();
+  if(character.id && !character.renderedImg){
+    drawNPCImage(character);
+  }
+
+
+  // Show NPC talk
+  if(character.isNear){
+    ctx.beginPath();
+    ctx.arc(character.x,character.y,10,0,2*Math.PI);
+    ctx.stroke();
+  }
 };
 // draw NPCs
 const drawNPCs = () => {
+  const {NPCs} = currentMap; 
   NPCs.forEach((npc) => {
     drawCharacter(npc);
   });
 };
 const drawUnmoveZone = () => {
+  const {unmovableZone} = currentMap; 
   ctx.beginPath();
   unmovableZone.forEach((zone) => {
     ctx.rect(
@@ -228,54 +310,56 @@ const drawUnmoveZone = () => {
       zone.sizeX * defaultSquare,
       zone.sizeY * defaultSquare
     );
-    if(!zone.isNPC){
-      ctx.fillStyle = "#ff0000";
-    }
     ctx.fill();
-    // unmovableZoneArray.right.push(zone.x);
-    // unmovableZoneArray.down.push(zone.y);
-    // unmovableZoneArray.left.push(zone.x + zone.sizeX*defaultSquare);
-    // unmovableZoneArray.up.push(zone.y + zone.sizeY*defaultSquare);
   });
 };
 
 const drawCanvas = () => {
   ctx.clearRect(0, 0, canvasDOM.width, canvasDOM.height);
   // draw drid
-  drawGrid();
+  // drawGrid();
   // draw character position
+  canvasDOM.style.backgroundImage = `url(assets/${currentMap.source})`
+  canvasDOM.style.backgroundSize = 'cover'
   drawCharacter(character);
   // draw NPCs
   drawNPCs();
-  drawUnmoveZone();
+  // drawUnmoveZone();
 
-  document.getElementById(
-    "coors"
-  ).innerHTML = `Character_x:${character.x} </br>Charater_y:${character.y}`;
-};
+  };
 
 // MAIN
 
+// Draw NPC chatbox
+const drawChatBox = (character) => {
+  const chatBoxLeft = character.x;
+  const chatBoxTop  = character.y - defaultSquare;
+  canvasBoxDOM.appendChild(chatBox(character.id, character.interaction.talk,chatBoxTop,chatBoxLeft))
+  character.renderedChat = true;
+}
+const drawNPCImage = (character) => {
+  const chatBoxLeft = character.x;
+  const chatBoxTop  = character.y;
+  canvasBoxDOM.appendChild(NPCSpriteSheet(character.id,chatBoxTop,chatBoxLeft))
+  character.renderedImg = true;
+}
+
 function main() {
+  const {NPCs} = currentMap; 
   // character.x = defaultSquare / 2;
   // character.y = defaultSquare / 2;
-  NPCs.forEach((npc,index) => {
-    unmovableZone.push({
+  NPCs.forEach((npc, index) => {
+    currentMap.unmovableZone.push({
       x: npc.x,
       y: npc.y,
       sizeX: 1,
       sizeY: 1,
-      isNPC:true,
-      npcIndex: index
+      isNPC: true,
+      npcIndex: index,
     });
+
   });
-  unmovableZone.forEach((zone) => {
-    unmovableZoneArray.right.push(zone.x);
-    unmovableZoneArray.down.push(zone.y);
-    unmovableZoneArray.left.push(zone.x + zone.sizeX * defaultSquare);
-    unmovableZoneArray.up.push(zone.y + zone.sizeY * defaultSquare);
-  });
-  console.log(unmovableZoneArray);
+
   drawCanvas();
   movingCanvas();
 }

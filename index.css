@@ -9,15 +9,22 @@
 #coors{
   color:white;
 }
-canvas {
-    border: 1px solid red;
-    position: absolute;
-    background: #000;
+#canvasBox {
+  /* border: 1px solid red; */
+  position: absolute;
+  /* border: 10px solid #365f9a; */
+  /* background: #365f9a; */
+  /* border-radius: 10px; */
 }
-.root {
+canvas{
+vertical-align: middle;
+/* border-radius: 10px; */
+}
+#root {
   display: flex;
   justify-content: center;
-  align-items: center;
+  padding:50px;
+  /* align-items: center; */
   min-width: 100%;
   min-height: 100vh;
   background: black;
@@ -26,27 +33,45 @@ canvas {
   width: 50vw;
   height: 50vw;
   border: 1px solid white;
-  background: grey;
+  /* background: #5fa0d8; */
+  background: black;
   position: relative;
   overflow: hidden;
 }
 
 .Character {
-  width: calc(32px * var(--pixel-size));
-  height: calc(32px * var(--pixel-size));
+  /* width: calc(32px * var(--pixel-size)); */
+  /* height: calc(32px * var(--pixel-size)); */
+  height: calc(192px / 4);
+  width: 32px;
   overflow: hidden;
   position: absolute;
-  top:calc(50% - 32px);
-  left:50%;
+  /* top:calc(50% - 32px);
+  left:50%; */
+
+  top: calc(50%);
+  left: calc(50%);
+
   transform: translate(-50%,-50%);
 }
-
+.NPC {
+  width: calc(32px * (var(--pixel-size) - 1));
+  height: calc(32px * (var(--pixel-size) - 1));
+  overflow: hidden;
+  position: absolute;
+  transform: translate(-25%,-25%);
+}
+.NPC img{
+  width: 100%;
+  /* max-width: 100%; */
+}
 .moving{
   transform: translate3d(-75%, 0, 0);
   animation: moveSpritesheet 1s steps(4) infinite;
 }
 .Character_spritesheet {
-  width: calc(128px * var(--pixel-size));
+  /* width: calc(32px * var(--pixel-size)); */
+  top:0;
   position: absolute;
 }
 .Character_shadow {
@@ -60,15 +85,27 @@ canvas {
 }
 
 .face-right {
-  top: calc(-32px * var(--pixel-size));
+  top: -97px;
 }
 .face-up {
-  top: calc(-64px * var(--pixel-size));
+  top: -145.5px;
 }
 .face-left {
-  top: calc(-96px * var(--pixel-size));
+  top: -48.5px;
 }
-
+.chat-box{
+  position: absolute;
+  transition: 0.3s;
+  transform: translateY(-100%) scale(1);
+  z-index: 100;
+  max-width: 50%;
+  font-size: 0.5em;
+  padding: 5px;
+}
+.hide{
+  transform: translateY(0) scale(0);
+  transform-origin: left bottom;
+}
 @keyframes moveSpritesheet {
   from {
     transform: translate3d(0, 0, 0);
