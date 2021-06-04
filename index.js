@@ -1,63 +1,62 @@
 // Declaration
 const defaultSquare = 32;
 const stepSpeed = 3; // n px for each press
-const unmovableZone = [
-  // {
-  //   x: 96,
-  //   y: 96,
-  //   sizeX: 2,
-  //   sizeY: 1,
-  // },
-  // {
-  //   x: 128,
-  //   y: 128,
-  //   sizeX: 1,
-  //   sizeY: 2,
-  // },
-];
+let currentMenu = "MAIN_MENU";
+let movingDirection = "";
+const listMenu = {
+  MAIN_MENU: {
+    key: "MAIN_MENU",
+    items: document.querySelectorAll(`#mainMenu li`),
+    currentItem: 0,
+  },
+  PROFILE_MENU: {
+    key: "PROFILE_MENU",
+  },
+};
+console.log(listMenu);
 const maps = [
   {
-    id:'map_0',
-    name:'out_side',
-    size:[20,20],
-    source: 'map_3.png',
-    unmovableZone : [
+    id: "map_0",
+    name: "out_side",
+    size: [20, 20],
+    source: "map_3.png",
+    unmovableZone: [
       {
-      x: 0,
-      y: 0,
-      sizeX: 20,
-      sizeY: 5,
-    },
-    // {
-    //   x:0,
-    //   y:3*defaultSquare,
-    //   sizeX:1,
-    //   sizeY:2
-    // },
-    // {
-    //   x:3*defaultSquare,
-    //   y:3*defaultSquare,
-    //   sizeX:1,
-    //   sizeY:2
-    // }
+        x: 0,
+        y: 0,
+        sizeX: 20,
+        sizeY: 5,
+      },
+      // {
+      //   x:0,
+      //   y:3*defaultSquare,
+      //   sizeX:1,
+      //   sizeY:2
+      // },
+      // {
+      //   x:3*defaultSquare,
+      //   y:3*defaultSquare,
+      //   sizeX:1,
+      //   sizeY:2
+      // }
     ],
     NPCs: [
       {
-        id: 'npc_0',
+        id: "npc_0",
         name: "john",
         x: defaultSquare * 10,
         y: defaultSquare * 10,
-        src: 'cop_masked.png',
+        src: "cop_masked.png",
         interaction: {
           talk: "Hi there! Please put the mask on to join",
           action: "wear_mask",
         },
         isNear: false,
-      }
-    ]
-  }
-]
-let currentMap = maps[0]
+      },
+    ],
+  },
+];
+let currentMap = maps[0];
 console.log(currentMap);
 // const NPCs = [
 //   {
@@ -87,7 +86,7 @@ console.log(currentMap);
 const character = {
   x: 1 * defaultSquare,
   y: 6 * defaultSquare,
-  mask_on: false
+  mask_on: false,
 };
 // const map = {
 //   name: "home",
@@ -99,6 +98,7 @@ const canvasDOM = document.getElementById("map");
 const canvasBoxDOM = document.getElementById("canvasBox");
 const mapContainerDOM = document.getElementById("mapContainer");
 const mainCharactorDOM = document.getElementById("mainCharacter");
+const menuLayerDOM = document.getElementById("menuLayer");
 
 const movingCanvas = () => {
   canvasBoxDOM.style.top =
@@ -107,7 +107,7 @@ const movingCanvas = () => {
     mapContainerDOM.offsetWidth / 2 - (character.x + defaultSquare / 2) + "px";
 };
 const checkMoveable = () => {
-  const {unmovableZone,NPCs} = currentMap; 
+  const { unmovableZone, NPCs } = currentMap;
   let touch = false;
   unmovableZone.forEach((thing) => {
     if (
@@ -132,84 +132,110 @@ const checkNpcZone = (npc) => {
     npc.y <= character.y + defaultSquare * 1.5
   ) {
     npc.isNear = true;
-    document.getElementById(npc.id+'_chat_box').classList.remove('hide')
+    document.getElementById(npc.id + "_chat_box").classList.remove("hide");
   } else {
     npc.isNear = false;
-    document.getElementById(npc.id+'_chat_box').classList.add('hide')
+    document.getElementById(npc.id + "_chat_box").classList.add("hide");
+  }
+};
+const characterEvents = {
+  characterArrowLeft: function () {
+    mainCharactorDOM.setAttribute(
+      "class",
+      "Character_spritesheet moving pixelart face-left"
+    );
+    if (character.x > 0) {
+      character.x = character.x - stepSpeed;
+      if (!checkMoveable()) {
+        return (character.x = character.x + stepSpeed);
+      }
+      drawCanvas();
+      movingCanvas();
+    }
+  },
+  characterArrowUp: function () {
+    mainCharactorDOM.setAttribute(
+      "class",
+      "Character_spritesheet moving pixelart face-up"
+    );
+    if (character.y > 0) {
+      character.y = character.y - stepSpeed;
+      if (!checkMoveable()) {
+        return (character.y = character.y + stepSpeed);
+      }
+      drawCanvas();
+      movingCanvas();
+    }
+  },
 
-  }
-};
-const moveLeft = () => {
-  mainCharactorDOM.setAttribute(
-    "class",
-    "Character_spritesheet moving pixelart face-left"
-  );
-  if (character.x > 0) {
-    character.x = character.x - stepSpeed;
-    if (!checkMoveable()) {
-      return (character.x = character.x + stepSpeed);
+  characterArrowRight: function () {
+    mainCharactorDOM.setAttribute(
+      "class",
+      "Character_spritesheet moving pixelart face-right"
+    );
+    if (character.x < defaultSquare * currentMap.size[0] - defaultSquare) {
+      character.x = character.x + stepSpeed;
+      if (!checkMoveable()) {
+        return (character.x = character.x - stepSpeed);
+      }
+      drawCanvas();
+      movingCanvas();
     }
-    drawCanvas();
-    movingCanvas();
-  }
-};
-const moveUp = () => {
-  mainCharactorDOM.setAttribute(
-    "class",
-    "Character_spritesheet moving pixelart face-up"
-  );
-  if (character.y > 0) {
-    character.y = character.y - stepSpeed;
-    if (!checkMoveable()) {
-      return (character.y = character.y + stepSpeed);
+  },
+  characterArrowDown: function () {
+    mainCharactorDOM.setAttribute(
+      "class",
+      "Character_spritesheet moving pixelart face-down"
+    );
+    if (character.y < defaultSquare * currentMap.size[1] - defaultSquare) {
+      character.y = character.y + stepSpeed;
+      if (!checkMoveable()) {
+        return (character.y = character.y - stepSpeed);
+      }
+      drawCanvas();
+      movingCanvas();
     }
-    drawCanvas();
-    movingCanvas();
-  }
-};
+  },
 
-const moveRight = () => {
-  mainCharactorDOM.setAttribute(
-    "class",
-    "Character_spritesheet moving pixelart face-right"
-  );
-  if (character.x < defaultSquare * currentMap.size[0] - defaultSquare) {
-    character.x = character.x + stepSpeed;
-    if (!checkMoveable()) {
-      return (character.x = character.x - stepSpeed);
-    }
-    drawCanvas();
-    movingCanvas();
-  }
+  characterSpace: function () {
+    const { NPCs } = currentMap;
+    NPCs.forEach((npc) => {
+      if (
+        character.x <= npc.x + defaultSquare * 1.5 &&
+        npc.x <= character.x + defaultSquare * 1.5 &&
+        character.y <= npc.y + defaultSquare * 1.5 &&
+        npc.y <= character.y + defaultSquare * 1.5
+      ) {
+        alert(npc.interaction.action);
+      }
+    });
+  },
 };
-const moveDown = () => {
-  mainCharactorDOM.setAttribute(
-    "class",
-    "Character_spritesheet moving pixelart face-down"
-  );
-  if (character.y < defaultSquare * currentMap.size[1] - defaultSquare) {
-    character.y = character.y + stepSpeed;
-    if (!checkMoveable()) {
-      return (character.y = character.y - stepSpeed);
+const mainMenuEvents = {
+  ArrowUp: function () {
+    let _currentItem = listMenu[currentMenu].currentItem;
+    if (_currentItem !== 0) {
+      console.log(_currentItem);
+      listMenu[currentMenu].items[_currentItem].classList.remove("selected");
+      _currentItem--;
+      listMenu[currentMenu].currentItem = _currentItem;
+      listMenu[currentMenu].items[_currentItem].classList.add("selected");
     }
-    drawCanvas();
-    movingCanvas();
-  }
+  },
+  ArrowDown: function () {
+    let _currentItem = listMenu[currentMenu].currentItem;
+    if (_currentItem !== listMenu[currentMenu].items.length - 1) {
+      listMenu[currentMenu].items[_currentItem].classList.remove("selected");
+      _currentItem++;
+      listMenu[currentMenu].currentItem = _currentItem;
+      listMenu[currentMenu].items[_currentItem].classList.add("selected");
+    }
+  },
+  Space: function () {
+    let _currentItem = listMenu[currentMenu].currentItem;
+    listMenu[currentMenu].items[_currentItem].click();
+  },
 };
-
-const action = () => {
-  const {NPCs} = currentMap; 
-  NPCs.forEach(npc=>{
-    if (
-      character.x <= npc.x + defaultSquare * 1.5 &&
-      npc.x <= character.x + defaultSquare * 1.5 &&
-      character.y <= npc.y + defaultSquare * 1.5 &&
-      npc.y <= character.y + defaultSquare * 1.5
-    ) {
-      alert(npc.interaction.action)
-    } 
-  })
-}
 
 window.onresize = function () {
   drawCanvas();
@@ -217,24 +243,25 @@ window.onresize = function () {
 };
 document.addEventListener("keydown", (e) => {
   e = e || window.event;
-  if (["38", "40", "37", "39"].indexOf(e.keyCode.toString()) > -1){
-    e.preventDefault()
-  }
-  if (e.keyCode == "38") {
-    // up arrow
-    moveUp();
-  } else if (e.keyCode == "40") {
-    // down arrow
-    moveDown();
-  } else if (e.keyCode == "37") {
-    // left arrow
-    moveLeft();
-  } else if (e.keyCode == "39") {
-    // right arrow
-    moveRight();
-  } else if (e.keyCode == "32") {
-    // right arrow
-    action();
+  movingDirection = e.code;
+  console.log(listMenu.MAIN_MENU.key);
+  switch (currentMenu) {
+    case listMenu.MAIN_MENU.key: {
+      console.log(movingDirection);
+
+      if (["ArrowUp", "ArrowDown", "Space"].indexOf(movingDirection) > -1) {
+        console.log("dut");
+        mainMenuEvents[movingDirection]();
+      }
+      break;
+    }
+    default: {
+      console.log(currentMenu);
+      if (!currentMenu) {
+        characterEvents[`character${movingDirection}`]();
+      }
+      break;
+    }
   }
 });
 document.addEventListener("keyup", (e) => {
@@ -245,7 +272,7 @@ document.addEventListener("keyup", (e) => {
 // DRAW
 ctx = canvasDOM.getContext("2d");
 canvasDOM.setAttribute("width", defaultSquare * currentMap.size[0]);
-canvasDOM.setAttribute("height", defaultSquare *  currentMap.size[1]);
+canvasDOM.setAttribute("height", defaultSquare * currentMap.size[1]);
 ctx.fillStyle = "#00ff00";
 ctx.strokeStyle = "#ff0000";
 //draw X
@@ -267,41 +294,40 @@ const drawGrid = () => {
 };
 // draw character
 const drawCharacter = (character) => {
-  // ctx.beginPath();
-  // ctx.arc(
-  //   character.x + defaultSquare / 2,
-  //   character.y + defaultSquare / 2,
-  //   defaultSquare / 2,
-  //   0,
-  //   2 * Math.PI
-  // );
-  // ctx.fill();
-  
+  ctx.beginPath();
+  ctx.arc(
+    character.x + defaultSquare / 2,
+    character.y + defaultSquare / 2,
+    defaultSquare / 2,
+    0,
+    2 * Math.PI
+  );
+  ctx.fill();
+
   // Only NPC have id
-  if(character.id && !character.renderedChat){
+  if (character.id && !character.renderedChat) {
     drawChatBox(character);
   }
-  if(character.id && !character.renderedImg){
+  if (character.id && !character.renderedImg) {
     drawNPCImage(character);
   }
 
-
   // Show NPC talk
-  if(character.isNear){
+  if (character.isNear) {
     ctx.beginPath();
-    ctx.arc(character.x,character.y,10,0,2*Math.PI);
+    ctx.arc(character.x, character.y, 10, 0, 2 * Math.PI);
     ctx.stroke();
   }
 };
 // draw NPCs
 const drawNPCs = () => {
-  const {NPCs} = currentMap; 
+  const { NPCs } = currentMap;
   NPCs.forEach((npc) => {
     drawCharacter(npc);
   });
 };
 const drawUnmoveZone = () => {
-  const {unmovableZone} = currentMap; 
+  const { unmovableZone } = currentMap;
   ctx.beginPath();
   unmovableZone.forEach((zone) => {
     ctx.rect(
@@ -317,35 +343,49 @@ const drawUnmoveZone = () => {
 const drawCanvas = () => {
   ctx.clearRect(0, 0, canvasDOM.width, canvasDOM.height);
   // draw drid
-  // drawGrid();
+  drawGrid();
   // draw character position
-  canvasDOM.style.backgroundImage = `url(assets/${currentMap.source})`
-  canvasDOM.style.backgroundSize = 'cover'
+  canvasDOM.style.backgroundImage = `url(assets/${currentMap.source})`;
+  canvasDOM.style.backgroundSize = "cover";
   drawCharacter(character);
   // draw NPCs
   drawNPCs();
   // drawUnmoveZone();
-
-  };
+};
 
 // MAIN
 
 // Draw NPC chatbox
 const drawChatBox = (character) => {
   const chatBoxLeft = character.x;
-  const chatBoxTop  = character.y - defaultSquare;
-  canvasBoxDOM.appendChild(chatBox(character.id, character.interaction.talk,chatBoxTop,chatBoxLeft))
+  const chatBoxTop = character.y - defaultSquare;
+  canvasBoxDOM.appendChild(
+    chatBox(character.id, character.interaction.talk, chatBoxTop, chatBoxLeft)
+  );
   character.renderedChat = true;
-}
+};
 const drawNPCImage = (character) => {
   const chatBoxLeft = character.x;
-  const chatBoxTop  = character.y;
-  canvasBoxDOM.appendChild(NPCSpriteSheet(character.id,chatBoxTop,chatBoxLeft))
+  const chatBoxTop = character.y;
+  canvasBoxDOM.appendChild(
+    NPCSpriteSheet(character.id, chatBoxTop, chatBoxLeft)
+  );
   character.renderedImg = true;
-}
+};
+const openMenu = (menu) => {
+  menuLayerDOM.classList.remove("d-none");
+  menuLayerDOM.classList.add("show");
+  currentMenu = menu;
+  listMenu[currentMenu].items[0].classList.add("selected");
+};
+const clearMenu = () => {
+  menuLayerDOM.classList.add("d-none");
+  currentMenu = "";
+};
 
 function main() {
-  const {NPCs} = currentMap; 
+  openMenu("MAIN_MENU");
+  const { NPCs } = currentMap;
   // character.x = defaultSquare / 2;
   // character.y = defaultSquare / 2;
   NPCs.forEach((npc, index) => {
@@ -357,9 +397,7 @@ function main() {
       isNPC: true,
       npcIndex: index,
     });
-
   });
-
   drawCanvas();
   movingCanvas();
 }

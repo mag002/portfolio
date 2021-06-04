@@ -4,57 +4,127 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
-    <link rel="stylesheet" href="./node_modules/nes.css/css/nes.min.css">
+    <title>Phuc Le - lehongphuc7394@gmail.com - 0921805325</title>
+    <link
+      rel="shortcut icon"
+      href="assets/contact_me.png"
+      type="image/x-icon"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Press+Start+2P"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./node_modules/nes.css/css/nes.min.css" />
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
     <!-- This is the code from a tutorial on my tiny YouTube channel: https://www.youtube.com/watch?v=ekI7vjkFrGA -->
     <div id="root">
-      <div id="mapContainer">
-        <div id="canvasBox">
-        <canvas id="map"> </canvas>
-
+      <div id="menuLayer" class="show">
+        <div id="mainMenu">
+          <div
+            class="d-flex justify-content-center align-items-center flex-column"
+          >
+            <img src="assets/logo.png" alt="" />
+            <ul>
+              <li
+                class="mainMenu_select"
+                onclick="handleMenuItemSelect('start')"
+              >
+                Start
+              </li>
+              <li
+                class="mainMenu_select"
+                onclick="handleMenuItemSelect('quit')"
+              >
+                Quit
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="Character">
-          <img
-            class="Character_shadow pixelart"
-            src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/21542/DemoRpgCharacterShadow.png"
-            alt="Shadow"
-          />
-          <img
-            class="Character_spritesheet pixelart face-down"
-            id="mainCharacter"
-            src="assets/demo_char.png"
-            alt="Character"
-          />
+      </div>
+      <div class="container-fluid">
+        <div class="row h-100vh">
+          <div class="col-md-6 col-12 py-10px">
+            <div id="mapContainer">
+              <div id="canvasBox">
+                <canvas id="map"> </canvas>
+              </div>
+              <div class="Character">
+                <img
+                  class="Character_shadow pixelart"
+                  src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/21542/DemoRpgCharacterShadow.png"
+                  alt="Shadow"
+                />
+                <img
+                  class="Character_spritesheet pixelart face-down"
+                  id="mainCharacter"
+                  src="assets/demo_char.png"
+                  alt="Character"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-12">
+            <div id="controller">
+              <div class="row h-100">
+                <div class="col-4 controller_left"></div>
+                <div class="col-4 controller_center"></div>
+                <div class="col-4 controller_right"></div>
+              </div>
+            </div>
+            <div id="instruction">
+              <div class="row">
+                <div class="col-12">Instruction</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"
+    ></script>
     <script src="component.js"></script>
     <script src="index.js"></script>
+    <script src="event.js"></script>
   </body>
 </html>
 <!-- todo
-- [ ] Create Interaction zone
-- [ ] Double click to show control with mouse
-- [ ] NPC?
-    - [ ] Gen NPC,
-    - [ ] NPC interaction
-- [ ] Draw map and character
+- [ ] controller
+- [ ] Menu
+   + [ ] Menu interact by keyboard
+   + [ ] SFX for menu movement
+- [x] Create Interaction zone
+- [x] NPC?
+    - [x] Gen NPC,
+    - [x] NPC interaction
+- [x] Draw map and character
 - [ ] When press Start, Character will say Hi and introduce self, tutorial,
 after that, client can press key to move (create a css anmation with div position center)
 - [ ] Background for around mapContaier will be a game boy game console with control or NES GAME controller
 https://cdn-learn.adafruit.com/guides/images/000/002/522/medium800/adabot2.png
 https://cdn.hipwallpaper.com/i/38/14/pNqZre.jpg
 
+
+- [ ] Design homescreen:
+http://pa1.narvii.com/6566/d0087b9440452bd77c9d878e22513c31d35a12b4_00.gif
+
 map have 4 zone
 - Profile  (my pc)
 - Skill (iron man or bí kiếp )
 - Projects (list project, with cup, )
+  + [ ]Show menu like rockman boss 
 - Contact (mail and phone)
- 
+- Buy me a coffe
 
 IDEA:
 - Have a menu to chose game to play
@@ -62,4 +132,5 @@ IDEA:
   + Maria
   + Tank
   + Contra
+- Have 2 page, 1 for playing game to read profile, 1 is static page
 -->
