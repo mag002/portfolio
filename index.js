@@ -139,7 +139,7 @@ const checkNpcZone = (npc) => {
   }
 };
 const characterEvents = {
-  characterArrowLeft: function () {
+  ArrowLeft: function () {
     mainCharactorDOM.setAttribute(
       "class",
       "Character_spritesheet moving pixelart face-left"
@@ -153,7 +153,7 @@ const characterEvents = {
       movingCanvas();
     }
   },
-  characterArrowUp: function () {
+  ArrowUp: function () {
     mainCharactorDOM.setAttribute(
       "class",
       "Character_spritesheet moving pixelart face-up"
@@ -168,7 +168,7 @@ const characterEvents = {
     }
   },
 
-  characterArrowRight: function () {
+  ArrowRight: function () {
     mainCharactorDOM.setAttribute(
       "class",
       "Character_spritesheet moving pixelart face-right"
@@ -182,7 +182,7 @@ const characterEvents = {
       movingCanvas();
     }
   },
-  characterArrowDown: function () {
+  ArrowDown: function () {
     mainCharactorDOM.setAttribute(
       "class",
       "Character_spritesheet moving pixelart face-down"
@@ -197,7 +197,7 @@ const characterEvents = {
     }
   },
 
-  characterSpace: function () {
+  Space: function () {
     const { NPCs } = currentMap;
     NPCs.forEach((npc) => {
       if (
@@ -209,6 +209,10 @@ const characterEvents = {
         alert(npc.interaction.action);
       }
     });
+  },
+  stopMoving: function (e) {
+    e = e || window.event;
+    mainCharactorDOM.classList.remove("moving");
   },
 };
 const mainMenuEvents = {
@@ -244,13 +248,9 @@ window.onresize = function () {
 document.addEventListener("keydown", (e) => {
   e = e || window.event;
   movingDirection = e.code;
-  console.log(listMenu.MAIN_MENU.key);
   switch (currentMenu) {
     case listMenu.MAIN_MENU.key: {
-      console.log(movingDirection);
-
       if (["ArrowUp", "ArrowDown", "Space"].indexOf(movingDirection) > -1) {
-        console.log("dut");
         mainMenuEvents[movingDirection]();
       }
       break;
@@ -258,15 +258,16 @@ document.addEventListener("keydown", (e) => {
     default: {
       console.log(currentMenu);
       if (!currentMenu) {
-        characterEvents[`character${movingDirection}`]();
+        characterEvents[movingDirection]();
       }
       break;
     }
   }
 });
 document.addEventListener("keyup", (e) => {
-  e = e || window.event;
-  mainCharactorDOM.classList.remove("moving");
+  // e = e || window.event;
+  // mainCharactorDOM.classList.remove("moving");
+  characterEvents.stopMoving(e);
 });
 
 // DRAW

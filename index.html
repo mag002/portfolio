@@ -74,7 +74,46 @@
           <div class="col-md-6 col-12">
             <div id="controller">
               <div class="row h-100">
-                <div class="col-4 controller_left"></div>
+                <div class="col-4 controller_left">
+                  <div
+                    class="controller_btn"
+                    ontouchstart="characterEvents['ArrowUp']()"
+                    onmousedown="characterEvents['ArrowUp']()"
+                    ontouchend="characterEvents.stopMoving()"
+                    onmouseup="characterEvents.stopMoving()"
+                  >
+                    <button class="nes-btn">T</button>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <div
+                      class="controller_btn"
+                      ontouchstart=" characterEvents['ArrowLeft']()"
+                      onmousedown=" characterEvents['ArrowLeft']()"
+                      ontouchend="characterEvents.stopMoving()"
+                      onmouseup="characterEvents.stopMoving()"
+                    >
+                      <button class="nes-btn">L</button>
+                    </div>
+                    <div
+                      class="controller_btn"
+                      ontouchstart=" characterEvents['ArrowRight']()"
+                      onmousedown=" characterEvents['ArrowRight']()"
+                      ontouchend="characterEvents.stopMoving()"
+                      onmouseup="characterEvents.stopMoving()"
+                    >
+                      <button class="nes-btn">R</button>
+                    </div>
+                  </div>
+                  <div
+                    class="controller_btn"
+                    ontouchstart=" characterEvents['ArrowDown']()"
+                    onmousedown=" characterEvents['ArrowDown']()"
+                    ontouchend="characterEvents.stopMoving()"
+                    onmouseup="characterEvents.stopMoving()"
+                  >
+                    <button class="nes-btn">B</button>
+                  </div>
+                </div>
                 <div class="col-4 controller_center"></div>
                 <div class="col-4 controller_right"></div>
               </div>

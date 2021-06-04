@@ -80,7 +80,16 @@ canvas {
 
   height: 100%;
 }
-
+/* //TEMP */
+.controller_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.controller_btn button {
+  margin: auto;
+}
+/* TEMP */
 #instruction {
   height: 50%;
   background-color: lightcoral;
