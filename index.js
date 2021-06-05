@@ -432,8 +432,8 @@ function main() {
   });
   drawCanvas();
   movingCanvas();
-  clearMenu();
-  console.log(controller_btns);
+  // clearMenu();
+  // console.log(controller_btns);
 }
 const controller_btns = document.querySelectorAll(".controller_btn");
 
@@ -456,7 +456,6 @@ window.mobileCheck = function () {
 window.onload = function () {
   //Add event for controllers
   var md = window.mobileCheck();
-  console.log(controller_btns[0].getAttribute("direction"));
   for (let i = 0; i < controller_btns.length; i++) {
     const direction = controller_btns[i].getAttribute("direction");
     controller_btns[i].addEventListener(

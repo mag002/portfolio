@@ -75,13 +75,48 @@
             <div id="controller">
               <div class="row h-100">
                 <div class="col-4 controller_left">
-                  <div
+                  <div class="arrow-container">
+                    <div
+                      class="controller_btn"
+                      direction="ArrowUp"
+                      onmousedown="characterEvents['ArrowUp'](true)"
+                      onmouseup="characterEvents.stopMoving()"
+                    >
+                      <button class="">T</button>
+                    </div>
+                    <div
+                      class="controller_btn"
+                      direction="ArrowLeft"
+                      onmousedown=" characterEvents['ArrowLeft'](true)"
+                      onmouseup="characterEvents.stopMoving()"
+                    >
+                      <button class="">L</button>
+                    </div>
+                    <div></div>
+                    <div
+                      class="controller_btn"
+                      direction="ArrowRight"
+                      onmousedown=" characterEvents['ArrowRight'](true)"
+                      onmouseup="characterEvents.stopMoving()"
+                    >
+                      <button class="">R</button>
+                    </div>
+                    <div
+                      class="controller_btn"
+                      direction="ArrowDown"
+                      onmousedown=" characterEvents['ArrowDown'](true)"
+                      onmouseup="characterEvents.stopMoving()"
+                    >
+                      <button class="">B</button>
+                    </div>
+                  </div>
+                  <!-- <div
                     class="controller_btn"
                     direction="ArrowUp"
                     onmousedown="characterEvents['ArrowUp'](true)"
                     onmouseup="characterEvents.stopMoving()"
                   >
-                    <button class="nes-btn">T</button>
+                    <button class="">T</button>
                   </div>
                   <div class="d-flex justify-content-between">
                     <div
@@ -90,7 +125,7 @@
                       onmousedown=" characterEvents['ArrowLeft'](true)"
                       onmouseup="characterEvents.stopMoving()"
                     >
-                      <button class="nes-btn">L</button>
+                      <button class="">L</button>
                     </div>
                     <div
                       class="controller_btn"
@@ -98,7 +133,7 @@
                       onmousedown=" characterEvents['ArrowRight'](true)"
                       onmouseup="characterEvents.stopMoving()"
                     >
-                      <button class="nes-btn">R</button>
+                      <button class="">R</button>
                     </div>
                   </div>
                   <div
@@ -107,11 +142,18 @@
                     onmousedown=" characterEvents['ArrowDown'](true)"
                     onmouseup="characterEvents.stopMoving()"
                   >
-                    <button class="nes-btn">B</button>
-                  </div>
+                    <button class="">B</button>
+                  </div> -->
                 </div>
                 <div class="col-4 controller_center"></div>
-                <div class="col-4 controller_right"></div>
+                <div class="col-4 controller_right">
+                  <div class="button_ctn">
+                    <button class="controller_button"></button>
+                  </div>
+                  <div class="button_ctn">
+                    <button class="controller_button"></button>
+                  </div>
+                </div>
               </div>
             </div>
             <div id="instruction">
@@ -163,8 +205,9 @@ map have 4 zone
 \
 
 DOING:
-[ ] - hold cnotroller
+[x] - hold cnotroller
 [ ] - click on menu item
+[ ] - re style controller button https://codepen.io/epzilla/pen/cKjvB
 IDEA:
 - Have a menu to chose game to play
   + Pokemon

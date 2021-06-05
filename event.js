@@ -1,4 +1,5 @@
 const handleMenuItemSelect = (action) => {
+  const e = event || window.event;
   switch (action) {
     case "start": {
       menuLayerDOM.classList.remove("show");
@@ -8,6 +9,7 @@ const handleMenuItemSelect = (action) => {
       break;
     }
     case "quit": {
+      console.log(e);
       alert("QUIT?");
       break;
     }

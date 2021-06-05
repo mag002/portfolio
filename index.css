@@ -6,6 +6,16 @@
   margin: 0px;
   box-sizing: border-box;
 }
+a,
+button {
+  cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC)
+      14 0,
+    pointer !important;
+}
+/* .nes-btn:active:not(.is-disabled)::after { */
+/* box-shadow: inset 4px 4px #adafbc; */
+/* } */
+
 li {
   list-style-type: none;
   opacity: 0.5;
@@ -64,21 +74,143 @@ canvas {
 
 #controller {
   height: 50%;
+  padding: 10px;
+  border-radius: 10px;
+}
+#controller > div {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 10px solid white;
 }
 .controller_left {
-  background-color: grey;
-
+  background-color: #202020;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100%;
 }
+.controller_left button {
+  /* width: calc(50vw / 15); */
+  /* height: calc(50vw / 15); */
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  position: relative;
+  border-radius: 5px;
+}
+.controller_left button::before {
+  content: "";
+  width: 80%;
+  height: 80%;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0) 50%
+  );
+  border-radius: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.controller_left button:active::before {
+  content: "";
+  width: 80%;
+  height: 80%;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0) 50%
+  );
+  border-radius: 100%;
+  position: absolute;
+  top: calc(50% - 2px);
+  left: calc(50% - 2px);
+  transform: translate(-50%, -50%);
+}
+.controller_left .arrow-container {
+  width: calc(50vw / 3 - 20px);
+  height: calc(50vw / 3 - 20px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+.controller_left .controller_btn:first-child {
+  grid-column: 2;
+}
+.controller_left .controller_btn:nth-child(2) {
+  grid-column: 1;
+  grid-row: 2;
+}
+.controller_left div:nth-child(3) {
+  grid-column: 2;
+  grid-row: 2;
+}
+.controller_left .controller_btn:nth-child(4) {
+  grid-column: 3;
+  grid-row: 2;
+}
+.controller_left .controller_btn:nth-child(5) {
+  grid-column: 2;
+  grid-row: 3;
+}
+/* .controller_left .controller_btn:first-child button {
+  border-radius: 5px 5px 0px 0px;
+}
+.controller_left .controller_btn:nth-child(2) button {
+  border-radius: 5px 0 0 5px;
+}
+.controller_left .controller_btn:nth-child(4) button {
+  border-radius: 0px 5px 5px 0px;
+}
+.controller_left .controller_btn:nth-child(5) button {
+  border-radius: 0px 0 5px 5px;
+} */
 .controller_center {
   background-color: black;
 
   height: 100%;
 }
 .controller_right {
-  background-color: grey;
-
+  background-color: #202020;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.controller_right button {
+  height: 100%;
+  width: 100%;
+  border-radius: 100%;
+  color: #fff;
+  background-color: #e76e55;
+}
+.controller_right .button_ctn {
+  width: calc(50vw / 9);
+  height: calc(50vw / 9);
+  padding: 5%;
+  background-color: white;
+  border-radius: 5px;
+  position: relative;
+}
+.controller_right .button_ctn:nth-child(1) {
+  margin-right: 10%;
+}
+.button_ctn:first-child:after {
+  content: "A";
+  position: absolute;
+  right: 0;
+  top: calc(100% + 5px);
+  color: #e76e55;
+  font-size: 0.75rem;
+}
+.button_ctn:last-child:after {
+  content: "B";
+  position: absolute;
+  right: 0;
+  top: calc(100% + 5px);
+  color: #e76e55;
+  font-size: 0.75rem;
 }
 /* //TEMP */
 .controller_btn {
@@ -201,5 +333,13 @@ canvas {
   -webkit-user-select: none; /* disable selection/Copy of UIWebView */
   -webkit-touch-callout: none; /* disable the IOS popup when long-press on a link */
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 767px) {
+  .controller_left .arrow-container {
+    width: calc(100vw / 3 - 20px);
+    height: calc(100vw / 3 - 20px);
+  }
+  .controller_right .button_ctn {
+    width: calc(100vw / 9);
+    height: calc(100vw / 9);
+  }
 }
