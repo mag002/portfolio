@@ -100,6 +100,7 @@ const canvasBoxDOM = document.getElementById("canvasBox");
 const mapContainerDOM = document.getElementById("mapContainer");
 const mainCharactorDOM = document.getElementById("mainCharacter");
 const menuLayerDOM = document.getElementById("menuLayer");
+const bodyDOM = document.querySelector("body");
 
 const movingCanvas = () => {
   canvasBoxDOM.style.top =
@@ -243,17 +244,17 @@ const mainMenuEvents = {
     }
   },
   ArrowDown: function () {
-    let _currentItem = listMenu[currentMenu].currentItem;
-    if (_currentItem !== listMenu[currentMenu].items.length - 1) {
-      listMenu[currentMenu].items[_currentItem].classList.remove("selected");
-      _currentItem++;
-      listMenu[currentMenu].currentItem = _currentItem;
-      listMenu[currentMenu].items[_currentItem].classList.add("selected");
-    }
+    this.setCurrentItem(listMenu[currentMenu].currentItem - 1);
   },
   Space: function () {
-    let _currentItem = listMenu[currentMenu].currentItem;
-    listMenu[currentMenu].items[_currentItem].click();
+    this.setCurrentItem(listMenu[currentMenu].currentItem + 1);
+  },
+  setCurrentItem: function (indexToSet) {
+    for (let index = 0; index < listMenu[currentMenu].items.length; index++) {
+      listMenu[currentMenu].items[index].classList.remove("selected");
+    }
+    listMenu[currentMenu].currentItem = indexToSet;
+    listMenu[currentMenu].items[indexToSet].classList.add("selected");
   },
 };
 
@@ -432,7 +433,7 @@ function main() {
   });
   drawCanvas();
   movingCanvas();
-  // clearMenu();
+  clearMenu();
   // console.log(controller_btns);
 }
 const controller_btns = document.querySelectorAll(".controller_btn");
@@ -455,6 +456,7 @@ window.mobileCheck = function () {
 };
 window.onload = function () {
   //Add event for controllers
+  bodyDOM.classList.add("showUp");
   var md = window.mobileCheck();
   for (let i = 0; i < controller_btns.length; i++) {
     const direction = controller_btns[i].getAttribute("direction");

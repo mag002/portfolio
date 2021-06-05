@@ -1,0 +1,19 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+}
+#homeScreen {
+  height: 100vh;
+}
+#homeScreen img {
+  max-width: calc(400px);
+}
+#homeScreen a {
+  transition: none;
+  color: black;
+  animation: bling 1s infinite;
+  animation-timing-function: cubic-bezier(1, -1, 0, 2);
+}
+#homeScreen a:hover {
+  text-decoration: none;
+}

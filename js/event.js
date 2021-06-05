@@ -1,7 +1,8 @@
-const handleMenuItemSelect = (action) => {
+const handleMenuItemSelect = (action, index) => {
   const e = event || window.event;
   switch (action) {
     case "start": {
+      mainMenuEvents.setCurrentItem(index);
       menuLayerDOM.classList.remove("show");
       setTimeout(() => {
         clearMenu();
@@ -9,6 +10,7 @@ const handleMenuItemSelect = (action) => {
       break;
     }
     case "quit": {
+      mainMenuEvents.setCurrentItem(index);
       console.log(e);
       alert("QUIT?");
       break;

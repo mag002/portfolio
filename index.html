@@ -21,148 +21,20 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./node_modules/nes.css/css/nes.min.css" />
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/homeScreen.css" />
   </head>
   <body>
     <!-- This is the code from a tutorial on my tiny YouTube channel: https://www.youtube.com/watch?v=ekI7vjkFrGA -->
-    <div id="root">
-      <div id="menuLayer" class="show">
-        <div id="mainMenu">
-          <div
-            class="d-flex justify-content-center align-items-center flex-column"
-          >
-            <img src="assets/logo.png" alt="" />
-            <ul>
-              <li
-                class="mainMenu_select"
-                onclick="handleMenuItemSelect('start')"
-              >
-                Start
-              </li>
-              <li
-                class="mainMenu_select"
-                onclick="handleMenuItemSelect('quit')"
-              >
-                Quit
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="container-fluid">
-        <div class="row h-100vh">
-          <div class="col-md-6 col-12 py-10px">
-            <div id="mapContainer">
-              <div id="canvasBox">
-                <canvas id="map"> </canvas>
-              </div>
-              <div class="Character">
-                <img
-                  class="Character_shadow pixelart"
-                  src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/21542/DemoRpgCharacterShadow.png"
-                  alt="Shadow"
-                />
-                <img
-                  class="Character_spritesheet pixelart face-down"
-                  id="mainCharacter"
-                  src="assets/demo_char.png"
-                  alt="Character"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-12">
-            <div id="controller">
-              <div class="row h-100">
-                <div class="col-4 controller_left">
-                  <div class="arrow-container">
-                    <div
-                      class="controller_btn"
-                      direction="ArrowUp"
-                      onmousedown="characterEvents['ArrowUp'](true)"
-                      onmouseup="characterEvents.stopMoving()"
-                    >
-                      <button class="">T</button>
-                    </div>
-                    <div
-                      class="controller_btn"
-                      direction="ArrowLeft"
-                      onmousedown=" characterEvents['ArrowLeft'](true)"
-                      onmouseup="characterEvents.stopMoving()"
-                    >
-                      <button class="">L</button>
-                    </div>
-                    <div></div>
-                    <div
-                      class="controller_btn"
-                      direction="ArrowRight"
-                      onmousedown=" characterEvents['ArrowRight'](true)"
-                      onmouseup="characterEvents.stopMoving()"
-                    >
-                      <button class="">R</button>
-                    </div>
-                    <div
-                      class="controller_btn"
-                      direction="ArrowDown"
-                      onmousedown=" characterEvents['ArrowDown'](true)"
-                      onmouseup="characterEvents.stopMoving()"
-                    >
-                      <button class="">B</button>
-                    </div>
-                  </div>
-                  <!-- <div
-                    class="controller_btn"
-                    direction="ArrowUp"
-                    onmousedown="characterEvents['ArrowUp'](true)"
-                    onmouseup="characterEvents.stopMoving()"
-                  >
-                    <button class="">T</button>
-                  </div>
-                  <div class="d-flex justify-content-between">
-                    <div
-                      class="controller_btn"
-                      direction="ArrowLeft"
-                      onmousedown=" characterEvents['ArrowLeft'](true)"
-                      onmouseup="characterEvents.stopMoving()"
-                    >
-                      <button class="">L</button>
-                    </div>
-                    <div
-                      class="controller_btn"
-                      direction="ArrowRight"
-                      onmousedown=" characterEvents['ArrowRight'](true)"
-                      onmouseup="characterEvents.stopMoving()"
-                    >
-                      <button class="">R</button>
-                    </div>
-                  </div>
-                  <div
-                    class="controller_btn"
-                    direction="ArrowDown"
-                    onmousedown=" characterEvents['ArrowDown'](true)"
-                    onmouseup="characterEvents.stopMoving()"
-                  >
-                    <button class="">B</button>
-                  </div> -->
-                </div>
-                <div class="col-4 controller_center"></div>
-                <div class="col-4 controller_right">
-                  <div class="button_ctn">
-                    <button class="controller_button"></button>
-                  </div>
-                  <div class="button_ctn">
-                    <button class="controller_button"></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div id="instruction">
-              <div class="row">
-                <div class="col-12">Instruction</div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div
+      id="homeScreen"
+      class="d-flex justify-content-center align-items-center"
+    >
+      <div class="text-center">
+        <img src="assets/sharklogo.jpg" alt="" />
+        <h1>Portfolio</h1>
+        <h2>Phuc Le</h2>
+        <a href="introduce.html" id="startBtn">Press start</a>
       </div>
     </div>
     <script
@@ -170,9 +42,15 @@
       integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
       crossorigin="anonymous"
     ></script>
-    <script src="component.js"></script>
-    <script src="index.js"></script>
-    <script src="event.js"></script>
+    <script src="js/global.js"></script>
+    <script>
+      const startBtnDom = document.getElementById("startBtn");
+      startBtnDom.addEventListener("click", function (e) {
+        e.preventDefault();
+        console.log(document.documentElement);
+        changePage(e.target.getAttribute("href"));
+      });
+    </script>
   </body>
 </html>
 <!-- todo

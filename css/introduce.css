@@ -1,0 +1,43 @@
+#introduce {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#introduce #talkText {
+  padding: 1rem 0px;
+  font-size: 1.75rem;
+}
+#actionsStep1,
+#actionsStep2 {
+  margin-top: 20px;
+}
+#actionsStep2 button:first-child {
+  margin-bottom: 20px;
+}
+#introduce #avatarAndAction {
+}
+@media screen and (max-width: 767px) {
+  #introduce #talkText {
+    font-size: 1.5rem;
+    height: 60vh;
+    overflow: auto;
+  }
+  #introduce #avatarAndAction {
+    height: 39vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  #introduce #avatarAndAction img {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 50vw;
+  }
+  #actionsStep1,
+  #actionsStep2 {
+    margin-top: 0px;
+    width: 50%;
+  }
+}

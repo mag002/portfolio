@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phuc Le - lehongphuc7394@gmail.com - 0921805325</title>
+    <link
+      rel="shortcut icon"
+      href="assets/contact_me.png"
+      type="image/x-icon"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Press+Start+2P"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./node_modules/nes.css/css/nes.min.css" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/introduce.css" />
+  </head>
+  <body>
+    <!-- This is the code from a tutorial on my tiny YouTube channel: https://www.youtube.com/watch?v=ekI7vjkFrGA -->
+    <div id="introduce">
+      <div class="container-fluid">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-12" id="talkText">
+              <p>
+                Hi there!<br />
+                Welcome to my Portfolio.
+              </p>
+            </div>
+            <div class="col-md-3 col-12" id="avatarAndAction">
+              <img src="assets/pixelAvatar.png" alt="" />
+              <div id="actionsStep1">
+                <button class="nes-btn w-100" id="next">Next</button>
+              </div>
+              <div id="actionsStep2" class="d-none">
+                <button class="nes-btn w-100" id="linkedIn">LinkedIn</button>
+                <button class="nes-btn w-100" id="startGame">Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/global.js"></script>
+    <script>
+      // Add to init.js file
+      const nextDOM = document.getElementById("next");
+      const talkTextDOM = document.getElementById("talkText");
+      const talkTextParagraphDOM = document.querySelector("#talkText p");
+      const actionsStep1DOM = document.getElementById("actionsStep1");
+      const actionsStep2DOM = document.getElementById("actionsStep2");
+      const linkedInDOM = document.getElementById("linkedIn");
+      const startGameDOM = document.getElementById("startGame");
+
+      nextDOM.addEventListener("click", function (e) {
+        actionsStep1DOM.classList.add("d-none");
+        talkTextParagraphDOM.innerHTML = `I Build a mini game for you to seeking my profile. You can check my linkedIn profile if you don't have much time`;
+        actionsStep2DOM.classList.remove("d-none");
+      });
+      startGameDOM.addEventListener("click", function (e) {
+        changePage("main.html");
+      });
+      linkedInDOM.addEventListener("click", function (e) {
+        window.location.href = "https://www.linkedin.com/in/le-phuc-169538173/";
+      });
+    </script>
+  </body>
+</html>

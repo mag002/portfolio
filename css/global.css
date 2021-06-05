@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+.showUp {
+  animation: showUp 1s forwards;
+}
+.showOut {
+  animation: showOut 1s forwards;
+}
+body {
+  filter: brightness(0);
+  background-color: black;
+  opacity: 0;
+}
+@keyframes bling {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes showUp {
+  from {
+    filter: brightness(0);
+    background-color: black;
+    opacity: 0;
+  }
+  to {
+    filter: brightness(1);
+    background-color: white;
+    opacity: 1;
+  }
+}
+@keyframes showOut {
+  from {
+    filter: brightness(1);
+    background-color: white;
+    opacity: 1;
+  }
+  to {
+    filter: brightness(0);
+    background-color: black;
+    opacity: 0;
+  }
+}
+@media screen and (max-width: 767px) {
+  #homeScreen img {
+    max-width: 90vws;
+  }
+}
