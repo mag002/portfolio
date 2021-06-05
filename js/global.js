@@ -9,3 +9,9 @@ const changePage = (page) => {
     window.location.href = page;
   }, 1000);
 };
+window.addEventListener("load", function () {
+  setTimeout(function () {
+    // This hides the address bar:
+    window.scrollTo(0, 1);
+  }, 0);
+});
