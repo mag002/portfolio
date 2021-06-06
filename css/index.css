@@ -98,7 +98,7 @@ canvas {
   position: relative;
   padding: 0px;
   border-radius: 5px;
-
+  background-color: white;
   box-shadow: 2px 2px 0px 0px lightgrey;
   transform: translate(-1px, -1px);
 }
@@ -209,7 +209,6 @@ canvas {
   transform: translate(-1px, -1px);
 }
 .controller_right button:active {
-  background-color: black;
   box-shadow: 2px 2px 0px 0px black inset;
   transform: translate(0px, 0px);
 }
