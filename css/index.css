@@ -83,7 +83,7 @@ canvas {
   border: 10px solid white;
 }
 .controller_left {
-  background-color: white;
+  background-color: #202020;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -97,15 +97,15 @@ canvas {
   /* background-color: black; */
   position: relative;
   padding: 0px;
-  /* border-radius: 5px;
+  border-radius: 5px;
 
-  box-shadow: 2px 2px 0px 0px black;
-  transform: translate(-1px, -1px); */
+  box-shadow: 2px 2px 0px 0px lightgrey;
+  transform: translate(-1px, -1px);
 }
-/* .controller_left button:active {
-  box-shadow: 2px 2px 0px 0px black inset;
+.controller_left button:active {
+  box-shadow: 2px 2px 0px 0px lightgrey inset;
   transform: translate(0px, 0px);
-} */
+}
 /* .controller_left button::before {
   content: "";
   width: 80%;
@@ -142,6 +142,8 @@ canvas {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
+  max-width: 150px;
+  max-height: 150px;
 }
 .controller_left .controller_btn:first-child {
   grid-column: 2;
@@ -153,10 +155,6 @@ canvas {
 .controller_left div:nth-child(3) {
   grid-column: 2;
   grid-row: 2;
-
-  background: white;
-  box-shadow: 1px 1px white;
-  z-index: 10;
 }
 .controller_left .controller_btn {
   background-color: whites;
@@ -170,15 +168,13 @@ canvas {
   grid-column: 2;
   grid-row: 3;
 }
-.controller_left .controller_btn:first-child button:after {
-  /* border-radius: 5px 5px 0px 0px; */
+/* .controller_left .controller_btn:first-child button:after {
   box-shadow: inset -4px 0px #adafbc;
 }
 .controller_left .controller_btn:nth-child(2) button:after {
   box-shadow: inset 0px -4px #adafbc;
 }
 .controller_left .controller_btn:first-child button {
-  /* border-radius: 5px 5px 0px 0px; */
   border-bottom: none;
 }
 .controller_left .controller_btn:nth-child(2) button {
@@ -189,7 +185,7 @@ canvas {
 }
 .controller_left .controller_btn:nth-child(5) button {
   border-top: none;
-}
+} */
 .controller_center {
   background-color: black;
 
