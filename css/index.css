@@ -203,6 +203,7 @@ canvas {
   width: 100%;
   border-radius: 100%;
   color: #fff;
+  background-color: white;
   background-color: #e76e55;
   box-shadow: 2px 2px 0px 0px black;
   transform: translate(-1px, -1px);
