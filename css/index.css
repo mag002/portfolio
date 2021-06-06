@@ -83,7 +83,7 @@ canvas {
   border: 10px solid white;
 }
 .controller_left {
-  background-color: #202020;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -97,15 +97,15 @@ canvas {
   /* background-color: black; */
   position: relative;
   padding: 0px;
-  border-radius: 5px;
+  /* border-radius: 5px;
 
   box-shadow: 2px 2px 0px 0px black;
-  transform: translate(-1px, -1px);
+  transform: translate(-1px, -1px); */
 }
-.controller_left button:active {
+/* .controller_left button:active {
   box-shadow: 2px 2px 0px 0px black inset;
   transform: translate(0px, 0px);
-}
+} */
 /* .controller_left button::before {
   content: "";
   width: 80%;
@@ -121,7 +121,7 @@ canvas {
   left: 50%;
   transform: translate(-50%, -50%);
 } */
-.controller_left button:active::before {
+/* .controller_left button:active::before {
   content: "";
   width: 80%;
   height: 80%;
@@ -135,7 +135,7 @@ canvas {
   top: calc(50% - 2px);
   left: calc(50% - 2px);
   transform: translate(-50%, -50%);
-}
+} */
 .controller_left .arrow-container {
   width: calc(50vw / 3 - 1vw);
   height: calc(50vw / 3 - 1vw);
@@ -154,10 +154,10 @@ canvas {
   grid-column: 2;
   grid-row: 2;
 }
-/* .controller_left .controller_btn {
-  border-radius: 5px;
-  overflow: hidden;
-} */
+.controller_left .controller_btn {
+  background-color: whites;
+}
+
 .controller_left .controller_btn:nth-child(4) {
   grid-column: 3;
   grid-row: 2;
@@ -166,18 +166,26 @@ canvas {
   grid-column: 2;
   grid-row: 3;
 }
-/* .controller_left .controller_btn:first-child button {
-  border-radius: 5px 5px 0px 0px;
+.controller_left .controller_btn:first-child button:after {
+  /* border-radius: 5px 5px 0px 0px; */
+  box-shadow: inset -4px 0px #adafbc;
+}
+.controller_left .controller_btn:nth-child(2) button:after {
+  box-shadow: inset 0px -4px #adafbc;
+}
+.controller_left .controller_btn:first-child button {
+  /* border-radius: 5px 5px 0px 0px; */
+  border-bottom: none;
 }
 .controller_left .controller_btn:nth-child(2) button {
-  border-radius: 5px 0 0 5px;
+  border-right: none;
 }
 .controller_left .controller_btn:nth-child(4) button {
-  border-radius: 0px 5px 5px 0px;
+  border-left: none;
 }
 .controller_left .controller_btn:nth-child(5) button {
-  border-radius: 0px 0 5px 5px;
-} */
+  border-top: none;
+}
 .controller_center {
   background-color: black;
 
