@@ -212,11 +212,7 @@ canvas {
   transform: translate(-1px, -1px);
 }
 .controller_right button:active {
-  height: 100%;
-  width: 100%;
-  border-radius: 100%;
-  color: #fff;
-  background-color: #e76e55;
+  background-color: black;
   box-shadow: 2px 2px 0px 0px black inset;
   transform: translate(0px, 0px);
 }
