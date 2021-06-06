@@ -1,13 +1,12 @@
 // Declaration
 const defaultSquare = 32;
 const stepSpeed = 3; // n px for each press
-let currentMenu = "MAIN_MENU";
+let currentMenu = {};
 let movingDirection = "";
 const listMenu = {
   MAIN_MENU: {
     key: "MAIN_MENU",
-    items: document.querySelectorAll(`#mainMenu li`),
-    currentItem: 0,
+    DOM: "mainMenu",
   },
   PROFILE_MENU: {
     key: "PROFILE_MENU",
@@ -101,7 +100,8 @@ const mapContainerDOM = document.getElementById("mapContainer");
 const mainCharactorDOM = document.getElementById("mainCharacter");
 const menuLayerDOM = document.getElementById("menuLayer");
 const bodyDOM = document.querySelector("body");
-
+const controllerBtnDOMs = document.querySelectorAll(".controller_btn");
+let currentMenuDOM;
 const movingCanvas = () => {
   canvasBoxDOM.style.top =
     mapContainerDOM.offsetHeight / 2 - (character.y + defaultSquare / 2) + "px";
@@ -234,27 +234,24 @@ const characterEvents = {
 };
 const mainMenuEvents = {
   ArrowUp: function () {
-    let _currentItem = listMenu[currentMenu].currentItem;
-    if (_currentItem !== 0) {
-      console.log(_currentItem);
-      listMenu[currentMenu].items[_currentItem].classList.remove("selected");
-      _currentItem--;
-      listMenu[currentMenu].currentItem = _currentItem;
-      listMenu[currentMenu].items[_currentItem].classList.add("selected");
-    }
+    this.setCurrentItem(currentMenu.currentItem - 1);
   },
   ArrowDown: function () {
-    this.setCurrentItem(listMenu[currentMenu].currentItem - 1);
+    this.setCurrentItem(currentMenu.currentItem + 1);
   },
   Space: function () {
-    this.setCurrentItem(listMenu[currentMenu].currentItem + 1);
+    let _currentItem = currentMenu.currentItem;
+    currentMenu.items[_currentItem].click();
   },
   setCurrentItem: function (indexToSet) {
-    for (let index = 0; index < listMenu[currentMenu].items.length; index++) {
-      listMenu[currentMenu].items[index].classList.remove("selected");
+    if (indexToSet >= currentMenu.items.length || indexToSet < 0) {
+      return;
     }
-    listMenu[currentMenu].currentItem = indexToSet;
-    listMenu[currentMenu].items[indexToSet].classList.add("selected");
+    for (let index = 0; index < currentMenu.items.length; index++) {
+      currentMenu.items[index].classList.remove("selected");
+    }
+    currentMenu.currentItem = indexToSet;
+    currentMenu.items[indexToSet].classList.add("selected");
   },
 };
 
@@ -280,7 +277,21 @@ window.onresize = function () {
 document.addEventListener("keydown", (e) => {
   e = e || window.event;
   movingDirection = e.code;
-  switch (currentMenu) {
+  if (
+    [
+      "ArrowUp",
+      "ArrowDown",
+      "ArrowLeft",
+      "ArrowRight",
+      "Enter",
+      "Shift",
+      "Esc",
+      "Space",
+    ].indexOf(movingDirection) > -1
+  ) {
+    e.preventDefault();
+  }
+  switch (currentMenu.key) {
     case listMenu.MAIN_MENU.key: {
       if (["ArrowUp", "ArrowDown", "Space"].indexOf(movingDirection) > -1) {
         mainMenuEvents[movingDirection]();
@@ -409,15 +420,22 @@ const openMenu = (menu) => {
   menuLayerDOM.classList.remove("d-none");
   menuLayerDOM.classList.add("show");
   currentMenu = menu;
-  listMenu[currentMenu].items[0].classList.add("selected");
+  const inner = menuDOMList[currentMenu.DOM]();
+  menuLayerDOM.innerHTML = inner;
+  currentMenuDOM = document.getElementById(currentMenu.DOM);
+  currentMenu.items = document.querySelectorAll(`#${currentMenu.DOM} li`);
+  setTimeout(() => {
+    currentMenu.items[0].classList.add("selected");
+    currentMenu.currentItem = 0;
+  }, 500);
 };
 const clearMenu = () => {
   menuLayerDOM.classList.add("d-none");
-  currentMenu = "";
+  currentMenu = {};
 };
 
 function main() {
-  openMenu("MAIN_MENU");
+  openMenu(listMenu.MAIN_MENU);
   const { NPCs } = currentMap;
   // character.x = defaultSquare / 2;
   // character.y = defaultSquare / 2;
@@ -433,10 +451,9 @@ function main() {
   });
   drawCanvas();
   movingCanvas();
-  clearMenu();
+  // clearMenu();
   // console.log(controller_btns);
 }
-const controller_btns = document.querySelectorAll(".controller_btn");
 
 main();
 window.mobileCheck = function () {
@@ -458,9 +475,9 @@ window.onload = function () {
   //Add event for controllers
   bodyDOM.classList.add("showUp");
   var md = window.mobileCheck();
-  for (let i = 0; i < controller_btns.length; i++) {
-    const direction = controller_btns[i].getAttribute("direction");
-    controller_btns[i].addEventListener(
+  for (let i = 0; i < controllerBtnDOMs.length; i++) {
+    const direction = controllerBtnDOMs[i].getAttribute("direction");
+    controllerBtnDOMs[i].addEventListener(
       md ? "touchstart" : "mousedown",
       function (e) {
         console.log(e);
@@ -469,7 +486,7 @@ window.onload = function () {
         characterEvents[direction](true);
       }
     );
-    controller_btns[i].addEventListener(
+    controllerBtnDOMs[i].addEventListener(
       md ? "touchend" : "mouseup",
       function (e) {
         e.preventDefault;

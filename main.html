@@ -23,33 +23,16 @@
     <link rel="stylesheet" href="./node_modules/nes.css/css/nes.min.css" />
     <link rel="stylesheet" href="css/global.css" />
     <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/menu.css" />
   </head>
   <body ontouchstart="">
     <!-- This is the code from a tutorial on my tiny YouTube channel: https://www.youtube.com/watch?v=ekI7vjkFrGA -->
     <div id="root">
-      <div id="menuLayer" class="show">
-        <div id="mainMenu">
-          <div
-            class="d-flex justify-content-center align-items-center flex-column"
-          >
-            <img src="assets/logo.png" alt="" />
-            <ul>
-              <li
-                class="mainMenu_select"
-                onclick="handleMenuItemSelect('start',0)"
-              >
-                Start
-              </li>
-              <li
-                class="mainMenu_select"
-                onclick="handleMenuItemSelect('quit',1)"
-              >
-                Quit
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      <div id="menuLayer" class="d-none"></div>
+      <!-- <div id="menuLayer" class="show">
+       
+      </div> -->
+
       <div class="container-fluid">
         <div class="row h-100vh">
           <div class="col-md-6 col-12 py-10px">
@@ -172,6 +155,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="js/component.js"></script>
+    <script src="js/menu.js"></script>
     <script src="js/index.js"></script>
     <script src="js/event.js"></script>
   </body>

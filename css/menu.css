@@ -1,0 +1,73 @@
+.mainMenu_actions button {
+  margin-left: 20px;
+  min-width: 100px;
+}
+.mainMenu_avatar {
+  width: 30%;
+  border: 5px solid black;
+}
+.mainMenu_contact {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  max-height: 100vh;
+  transition: all 0.3s;
+}
+.mainMenu_contact:last-child {
+  margin-bottom: 0px;
+}
+
+.mainMenu_contact a {
+  margin-left: 20px;
+  color: black;
+}
+p,
+a,
+#mainMenu li {
+  font-size: 1rem;
+}
+
+#mainMenu li {
+  margin-bottom: 16px;
+  display: block;
+}
+.click_to_show {
+  display: none;
+}
+/* .mainMenu_profile .menu_collapse hr {
+  display: none;
+} */
+@media screen and (max-width: 767px) {
+  p,
+  a,
+  #mainMenu li {
+    font-size: 0.75rem;
+  }
+  .mainMenu_contact .nes-icon.is-medium {
+    margin-right: 16px;
+    margin-bottom: 16px;
+    transform: scale(2);
+  }
+  /* .mainMenu_actions{
+      position: fixed;
+  } */
+  #menuLayer .nes-container > div {
+    overflow: auto;
+    transition: 0.3s;
+    max-height: 100vh;
+  }
+  .menu_collapse {
+    max-height: 0 !important;
+  }
+
+  .menu_collapse + .click_to_show {
+    display: block;
+  }
+  .mainMenu_profile .menu_collapse {
+    max-height: 100vh !important;
+  }
+  .mainMenu_profile .menu_collapse .mainMenu_contacts {
+    max-height: 0;
+    overflow: hidden;
+  }
+}
