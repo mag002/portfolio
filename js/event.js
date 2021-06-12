@@ -11,14 +11,23 @@ const handleMenuItemSelect = (action, index) => {
       }, 1500); // transition time
       break;
     }
+    case "experience": {
+      switchMenu(listMenu.EXPERIENCE_MENU);
+      break;
+    }
     case "quit": {
-      mainMenuEvents.setCurrentItem(index);
-      console.log(e);
-      alert("QUIT?");
+      // mainMenuEvents.setCurrentItem(index);
+      if (confirm("Are you sure?")) {
+        menuLayerDOM.style.filter = "brightness(0)";
+        setTimeout(() => {
+          open(INFO.linkedIn, "_self").close();
+        }, 1000);
+      }
       break;
     }
     default: {
       mainMenuEvents.setCurrentItem(index);
+      alert("Feature will coming soon");
       // menuLayerDOM.classList.remove("show");
       break;
     }

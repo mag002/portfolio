@@ -8,8 +8,9 @@ const listMenu = {
     key: "MAIN_MENU",
     DOM: "mainMenu",
   },
-  PROFILE_MENU: {
-    key: "PROFILE_MENU",
+  EXPERIENCE_MENU: {
+    key: "EXPERIENCE_MENU",
+    DOM: "experienceMenu",
   },
 };
 let mouseInterval;
@@ -27,18 +28,6 @@ const maps = [
         sizeX: 20,
         sizeY: 5,
       },
-      // {
-      //   x:0,
-      //   y:3*defaultSquare,
-      //   sizeX:1,
-      //   sizeY:2
-      // },
-      // {
-      //   x:3*defaultSquare,
-      //   y:3*defaultSquare,
-      //   sizeX:1,
-      //   sizeY:2
-      // }
     ],
     NPCs: [
       {
@@ -58,40 +47,11 @@ const maps = [
 ];
 let currentMap = maps[0];
 console.log(currentMap);
-// const NPCs = [
-//   {
-//     id: 'npc_0',
-//     name: "john",
-//     x: defaultSquare *3,
-//     y: defaultSquare * 0,
-//     src: 'cop_masked.png',
-//     interaction: {
-//       talk: "Hi there! Please put the mask on to join",
-//       action: "wear_mask",
-//     },
-//     isNear: false,
-//   },
-//   // {
-//   //   id: 'npc_1',
-//   //   name: "quick",
-//   //   x: defaultSquare * 4,
-//   //   y: defaultSquare * 1,
-//   //   interaction: {
-//   //     talk: "Yo! I'm Quick, Looking for Phuc's Projects?",
-//   //     action: "open_profile",
-//   //   },
-//   //   isNear: false,
-//   // },
-// ];
 const character = {
   x: 1 * defaultSquare,
   y: 6 * defaultSquare,
   mask_on: false,
 };
-// const map = {
-//   name: "home",
-//   src: "",
-// };
 
 // DOM
 const canvasDOM = document.getElementById("map");
@@ -299,7 +259,6 @@ document.addEventListener("keydown", (e) => {
       break;
     }
     default: {
-      console.log(currentMenu);
       if (!currentMenu) {
         characterEvents[movingDirection]();
       }
@@ -424,14 +383,35 @@ const openMenu = (menu) => {
   menuLayerDOM.innerHTML = inner;
   currentMenuDOM = document.getElementById(currentMenu.DOM);
   currentMenu.items = document.querySelectorAll(`#${currentMenu.DOM} li`);
-  setTimeout(() => {
-    currentMenu.items[0].classList.add("selected");
-    currentMenu.currentItem = 0;
-  }, 500);
+  if (["MAIN_MENU"].indexOf(menu) > -1) {
+    setTimeout(() => {
+      currentMenu.items[0].classList.add("selected");
+      currentMenu.currentItem = 0;
+    }, 500);
+  }
 };
 const clearMenu = () => {
-  menuLayerDOM.classList.add("d-none");
+  menuLayerDOM.classList.remove("show");
+  // menuLayerDOM.classList.add("d-none");
   currentMenu = {};
+};
+const switchMenu = (menu) => {
+  menuLayerDOM.style.filter = "brightness(0)";
+
+  setTimeout(() => {
+    currentMenu = menu;
+    const inner = menuDOMList[currentMenu.DOM]();
+    menuLayerDOM.innerHTML = inner;
+    currentMenuDOM = document.getElementById(currentMenu.DOM);
+    currentMenu.items = document.querySelectorAll(`#${currentMenu.DOM} li`);
+    if (["MAIN_MENU"].indexOf(menu.key) > -1) {
+      setTimeout(() => {
+        currentMenu.items[0].classList.add("selected");
+        currentMenu.currentItem = 0;
+      }, 500);
+    }
+    menuLayerDOM.style.filter = "";
+  }, 1000);
 };
 
 function main() {

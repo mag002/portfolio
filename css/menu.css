@@ -37,9 +37,48 @@ a,
 /* .mainMenu_profile .menu_collapse hr {
   display: none;
 } */
+
+#experienceMenu .company-logo {
+  max-width: 165px;
+}
+#experienceMenu li {
+  opacity: 1;
+}
+#experienceMenu dl {
+  margin-left: 20px;
+}
+#experienceMenu dd {
+  color: #5c5b5b;
+  margin-bottom: 30px;
+}
+#eperienceMenu .project {
+  padding-bottom: 20px;
+}
+#experienceMenu .company-container {
+  max-height: 75vh;
+  overflow: auto;
+}
+.is-sticky {
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: white;
+  z-index: 100;
+}
+#experienceMenu .company > div:first-child {
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: white;
+  z-index: 100;
+  padding-bottom: 10px;
+}
 @media screen and (max-width: 767px) {
   p,
   a,
+  span,
+  dd,
+  #experienceMenu li,
   #mainMenu li {
     font-size: 0.75rem;
   }
@@ -51,9 +90,10 @@ a,
   /* .mainMenu_actions{
       position: fixed;
   } */
-  #menuLayer .nes-container > div {
+  #menuLayer #mainMenu .nes-container > div {
     overflow: auto;
-    transition: 0.3s;
+    /* transition: 1.3s;
+    transition-timing-function: linear; */
     max-height: 100vh;
   }
   .menu_collapse {
@@ -69,5 +109,24 @@ a,
   .mainMenu_profile .menu_collapse .mainMenu_contacts {
     max-height: 0;
     overflow: hidden;
+  }
+  #experienceMenu .company-logo {
+    max-width: 100px;
+  }
+  #experienceMenu .project {
+    text-align: center;
+  }
+
+  #experienceMenu .project li {
+    margin: 10px 0px;
+  }
+  #experienceMenu .project > a:first-child {
+    margin-bottom: 0px !important;
+  }
+  #experienceMenu .project dd {
+    text-align: left;
+  }
+
+  #experienceMenu .menu-actions {
   }
 }

@@ -1,3 +1,24 @@
+const formatDate = (date) => {
+  const _date = new Date(date);
+  let day = _date.getDate();
+  let month = _date.getMonth();
+  let year = _date.getFullYear();
+  const monthText = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  return `${monthText[month]}, ${year}`;
+};
 // This file save all Menu HTML
 const menuDOMList = {
   // id is key and match with listMenu on index.js
@@ -96,13 +117,112 @@ const menuDOMList = {
             <p class="click_to_show">Touch here to show more...</p>
           </div>
           <div class="d-flex justify-content-end mainMenu_actions mt-2">
-            <button class="nes-btn is-error">Quit</button>
-            <button class="nes-btn is-primary">OK</button>
+            <button class="nes-btn is-error" onclick="handleMenuItemSelect('quit')">Quit</button>
+            <button class="nes-btn is-primary" onclick="clearMenu()">OK</button>
           </div>
         </div>
       </div>
     </div>
   </div>
   `;
+  },
+  experienceMenu: function () {
+    const { experience } = INFO;
+    console.log(experience);
+    const _string = experience.map((company) => {
+      return `
+      <div class="row company mb-5">
+        <!-- // One company -->
+        <div class="col-md-2 col-12">
+          <div
+            class="
+            is-sticky
+              d-flex
+              flex-md-column
+              align-items-md-start align-items-center 
+              justify-content-md-center justify-content-between
+            "
+          >
+            <div class="company-logo corner-border">
+              <img
+                src="${company.logo}"
+                alt=""
+              />
+            </div>
+            <div class="perfect-center flex-column">
+              <a href="#" class="nes-badge mt-4 d-block">
+                <span class="is-dark">${company.name}</span>
+              </a>
+              <a href="#" class="nes-badge mt-2 d-block">
+                <span class="is-warning">${company.role}</span>
+              </a>
+              <div><span>${formatDate(company.to)}</span></div>
+              <div><span>${formatDate(company.from)}</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-10 col-12">
+          <!-- PROJECTS -->
+          ${company.projects
+            .map((project) => {
+              return `
+              <div class="project">
+                <a href="#" class="mb-3 nes-badge" style="color: ${
+                  project.color.text
+                }">
+                  <span
+                    class="px-2 py-1"
+                    style="
+                      background-color: ${project.color.background};
+                      box-shadow: 0 0.5em ${
+                        project.color.background
+                      }, 0 -0.5em ${project.color.background},
+                        0.5em 0 ${project.color.background}, -0.5em 0 ${
+                project.color.background
+              };
+                    "
+                    class="is-dark"
+                    >${project.name}</span
+                  >
+                </a>
+    
+                <dl class="ml-3 nes-list is-circle">
+                  <li class="px-3">Work description:</li>
+                  <dd>
+                      ${project.description.trim()}
+                  </dd>
+                  <li class="px-3">Skills set utilized:</li>
+                  <dd>${project.skillSets.join()}</dd>
+                </dl>
+              </div>  
+              `;
+            })
+            .join("")}
+         
+          <hr />
+        </div>
+
+      </div>
+
+      `;
+    });
+    return `
+    <div id="experienceMenu">
+      <div class="container-fluid py-3">
+        <div class="nes-container with-title">
+          <p class="title">Profile</p>
+          <div class="company-container container-fluid">
+            ${_string.join("")}
+          </div>
+        </div>
+         
+        <div class="menu-actions d-flex justify-content-end mt-2">
+          <button class="nes-btn is-primary" onclick="switchMenu(listMenu.MAIN_MENU)">Back</button>
+          <!-- <button class="nes-btn is-primary">Ok</button>-->
+        </div>
+      </div>
+     
+    </div>
+    `;
   },
 };

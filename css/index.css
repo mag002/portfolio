@@ -37,6 +37,7 @@ canvas {
   /* border-radius: 10px; */
 }
 #menuLayer {
+  pointer-events: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -46,11 +47,12 @@ canvas {
   z-index: 100;
   filter: brightness(0);
   opacity: 0;
-  transition: all 1.5s;
+  transition: filter 1.5s, opacity 1.5s;
 }
 #menuLayer.show {
   filter: brightness(1);
   opacity: 1;
+  pointer-events: fill;
 }
 
 #controller {
