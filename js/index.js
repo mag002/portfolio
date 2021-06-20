@@ -20,7 +20,7 @@ const maps = [
     id: "map_0",
     name: "out_side",
     size: [20, 20],
-    source: "map_3.png",
+    source: "map.png",
     unmovableZone: [
       {
         x: 0,
@@ -28,13 +28,19 @@ const maps = [
         sizeX: 20,
         sizeY: 5,
       },
+      {
+        x: 0,
+        y: 5,
+        sizeX: 4,
+        sizeY: 15,
+      },
     ],
     NPCs: [
       {
         id: "npc_0",
         name: "john",
-        x: defaultSquare * 10,
-        y: defaultSquare * 10,
+        x: defaultSquare * 4,
+        y: defaultSquare * 7,
         src: "cop_masked.png",
         interaction: {
           talk: "Hi there! Please put the mask on to join",
@@ -48,8 +54,8 @@ const maps = [
 let currentMap = maps[0];
 console.log(currentMap);
 const character = {
-  x: 1 * defaultSquare,
-  y: 6 * defaultSquare,
+  x: 5 * defaultSquare,
+  y: 5 * defaultSquare,
   mask_on: false,
 };
 
@@ -251,6 +257,7 @@ document.addEventListener("keydown", (e) => {
   ) {
     e.preventDefault();
   }
+  console.log(currentMenu.key);
   switch (currentMenu.key) {
     case listMenu.MAIN_MENU.key: {
       if (["ArrowUp", "ArrowDown", "Space"].indexOf(movingDirection) > -1) {
@@ -259,9 +266,7 @@ document.addEventListener("keydown", (e) => {
       break;
     }
     default: {
-      if (!currentMenu) {
-        characterEvents[movingDirection]();
-      }
+      characterEvents[movingDirection]();
       break;
     }
   }
@@ -346,11 +351,11 @@ const drawUnmoveZone = () => {
 const drawCanvas = () => {
   ctx.clearRect(0, 0, canvasDOM.width, canvasDOM.height);
   // draw drid
-  drawGrid();
+  // drawGrid();
   // draw character position
   canvasDOM.style.backgroundImage = `url(assets/${currentMap.source})`;
   canvasDOM.style.backgroundSize = "cover";
-  drawCharacter(character);
+  // drawCharacter(character);
   // draw NPCs
   drawNPCs();
   // drawUnmoveZone();
@@ -383,7 +388,8 @@ const openMenu = (menu) => {
   menuLayerDOM.innerHTML = inner;
   currentMenuDOM = document.getElementById(currentMenu.DOM);
   currentMenu.items = document.querySelectorAll(`#${currentMenu.DOM} li`);
-  if (["MAIN_MENU"].indexOf(menu) > -1) {
+  console.log(menu.key);
+  if (["MAIN_MENU"].indexOf(menu.key) > -1) {
     setTimeout(() => {
       currentMenu.items[0].classList.add("selected");
       currentMenu.currentItem = 0;
@@ -415,7 +421,7 @@ const switchMenu = (menu) => {
 };
 
 function main() {
-  openMenu(listMenu.MAIN_MENU);
+  // openMenu(listMenu.MAIN_MENU);
   const { NPCs } = currentMap;
   // character.x = defaultSquare / 2;
   // character.y = defaultSquare / 2;
