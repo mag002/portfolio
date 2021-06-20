@@ -19,20 +19,38 @@ const maps = [
   {
     id: "map_0",
     name: "out_side",
-    size: [20, 20],
+    size: [13, 18],
     source: "map.png",
     unmovableZone: [
       {
         x: 0,
         y: 0,
         sizeX: 20,
-        sizeY: 5,
+        sizeY: 3,
       },
       {
-        x: 0,
-        y: 5,
+        x: defaultSquare * 0,
+        y: defaultSquare * 3,
         sizeX: 4,
-        sizeY: 15,
+        sizeY: 20,
+      },
+      {
+        x: defaultSquare * 11,
+        y: defaultSquare * 4.5,
+        sizeX: 2,
+        sizeY: 3.5,
+      },
+      {
+        x: defaultSquare * 11,
+        y: defaultSquare * 9.5,
+        sizeX: 2,
+        sizeY: 3.5,
+      },
+      {
+        x: defaultSquare * 11,
+        y: defaultSquare * 14.5,
+        sizeX: 2,
+        sizeY: 3.5,
       },
     ],
     NPCs: [
@@ -40,10 +58,50 @@ const maps = [
         id: "npc_0",
         name: "john",
         x: defaultSquare * 4,
-        y: defaultSquare * 7,
+        y: defaultSquare * 5,
         src: "cop_masked.png",
+        direction: "bottom",
         interaction: {
-          talk: "Hi there! Please put the mask on to join",
+          talk: "Hi sir! You can't go in",
+          action: "wear_mask",
+        },
+        isNear: false,
+      },
+      {
+        id: "npc_1",
+        name: "john",
+        x: defaultSquare * 11.5,
+        y: defaultSquare * 5.5,
+        src: "cop_masked.png",
+        direction: "left",
+        interaction: {
+          talk: "Looking for Phuc experience?",
+          action: "wear_mask",
+        },
+        isNear: false,
+      },
+      {
+        id: "npc_2",
+        name: "john",
+        x: defaultSquare * 11.5,
+        y: defaultSquare * 10.5,
+        src: "cop_masked.png",
+        direction: "left",
+        interaction: {
+          talk: "Looking for Phuc experience?",
+          action: "wear_mask",
+        },
+        isNear: false,
+      },
+      {
+        id: "npc_3",
+        name: "john",
+        x: defaultSquare * 11.5,
+        y: defaultSquare * 15.5,
+        src: "cop_masked.png",
+        direction: "left",
+        interaction: {
+          talk: "You want to contact with Phuc??",
           action: "wear_mask",
         },
         isNear: false,
@@ -256,18 +314,18 @@ document.addEventListener("keydown", (e) => {
     ].indexOf(movingDirection) > -1
   ) {
     e.preventDefault();
-  }
-  console.log(currentMenu.key);
-  switch (currentMenu.key) {
-    case listMenu.MAIN_MENU.key: {
-      if (["ArrowUp", "ArrowDown", "Space"].indexOf(movingDirection) > -1) {
-        mainMenuEvents[movingDirection]();
+    console.log(currentMenu.key);
+    switch (currentMenu.key) {
+      case listMenu.MAIN_MENU.key: {
+        if (["ArrowUp", "ArrowDown", "Space"].indexOf(movingDirection) > -1) {
+          mainMenuEvents[movingDirection]();
+        }
+        break;
       }
-      break;
-    }
-    default: {
-      characterEvents[movingDirection]();
-      break;
+      default: {
+        characterEvents[movingDirection]();
+        break;
+      }
     }
   }
 });
@@ -310,7 +368,7 @@ const drawCharacter = (character) => {
     0,
     2 * Math.PI
   );
-  ctx.fill();
+  // ctx.fill();
 
   // Only NPC have id
   if (character.id && !character.renderedChat) {
@@ -376,7 +434,7 @@ const drawNPCImage = (character) => {
   const chatBoxLeft = character.x;
   const chatBoxTop = character.y;
   canvasBoxDOM.appendChild(
-    NPCSpriteSheet(character.id, chatBoxTop, chatBoxLeft)
+    NPCSpriteSheet(character.id, chatBoxTop, chatBoxLeft, character.direction)
   );
   character.renderedImg = true;
 };
