@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
-      <loc>http://www.phucle.site/</loc>
-      <lastmod>2021-09-02T03:46:00.606Z</lastmod>
+      <loc>http://www.phucle.site/index.html</loc>
+      <lastmod>2021-09-02T04:22:32.744Z</lastmod>
+      <changefreq>daily</changefreq>
+   </url>
+   <url>
+      <loc>http://www.phucle.site/introduce.html</loc>
+      <lastmod>2021-09-02T04:22:32.744Z</lastmod>
+      <changefreq>daily</changefreq>
+   </url>
+   <url>
+      <loc>http://www.phucle.site/main.html</loc>
+      <lastmod>2021-09-02T04:22:32.744Z</lastmod>
       <changefreq>daily</changefreq>
    </url>
 </urlset>
