@@ -68,38 +68,43 @@ const menuDOMList = {
           <div class="nes-container with-title mainMenu_profile" onclick="mainMenuToggle('profile')">
             <p class="title">Profile</p>
             <div>
-              <img
-                src="assets/pixelAvatar.png"
-                alt="phucle avatar"
-                class="mainMenu_avatar"
-              />
+              <div>
+                <img
+                  src="assets/pixelAvatar.png"
+                  alt="phucle avatar"
+                  class="mainMenu_avatar"
+                />
+                <p>
+                  ${" " || INFO.ojective}
+                </p>
+              </div>
               <div class="mainMenu_info mt-3">
-                <p>Name: Phuc Le</p>
-                <p>Age: 24</p>
-                <p>Location: Hochiminh city</p>
-                <p>Country: Vietnam</p>
+                <p>Name: ${INFO.name}</p>
+                <p>Age: ${new Date().getFullYear() - INFO.age}</p>
+                <p>Location: ${INFO.location}</p>
+                <p>Country: ${INFO.country}</p>
               </div>
               <hr />
               <div class="mainMenu_contacts">
                 <div class="mainMenu_contact">
                   <i class="nes-icon is-medium whatsapp"></i>
-                  <a href="tel:+84921805325">0921805325</a>
+                  <a href="tel:+84${INFO.phone}">${INFO.phone}</a>
                 </div>
                 <div class="mainMenu_contact">
                   <i class="nes-icon is-medium gmail"></i>
-                  <a href="mailto:lehongphuc7394@gmail.com"
-                    >lehongphuc7394</a
+                  <a href="mailto:${INFO.email}"
+                    >${INFO.email}</a
                   >
                 </div>
                 <div class="mainMenu_contact">
                   <i class="nes-icon is-medium linkedin"></i>
-                  <a href="https://www.linkedin.com/in/le-phuc-169538173/"
+                  <a href="${INFO.linkedIn}"
                     >LinkedIn</a
                   >
                 </div>
                 <div class="mainMenu_contact">
                   <i class="nes-icon is-medium github"></i>
-                  <a href="https://github.com/mag002">Github</a>
+                  <a href="${INFO.github}">Github</a>
                 </div>
               </div>
             </div>
