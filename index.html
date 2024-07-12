@@ -1,59 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Phuc Le - Portfolio</title>
-    <link
-      rel="shortcut icon"
-      href="assets/contact_me.png"
-      type="image/x-icon"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Press+Start+2P"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./node_modules/nes.css/css/nes.min.css" />
-    <link rel="stylesheet" href="css/global.css" />
-    <link rel="stylesheet" href="css/homeScreen.css" />
-  </head>
-  <body>
-    <!-- This is the code from a tutorial on my tiny YouTube channel: https://www.youtube.com/watch?v=ekI7vjkFrGA -->
-    <div
-      id="homeScreen"
-      class="d-flex justify-content-center align-items-center"
-    >
-      <div class="text-center">
-        <img src="assets/sharklogo.jpg" alt="" />
-        <h1>Portfolio</h1>
-        <h2>Phuc Le</h2>
-        <a href="introduce.html" id="startBtn">Press start</a>
-      </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phuc Le - Portfolio</title>
+  <link rel="shortcut icon" href="assets/contact_me.png" type="image/x-icon" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet" />
+  <link rel="stylesheet" href="./node_modules/nes.css/css/nes.min.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/homeScreen.css" />
+</head>
+
+<body>
+  <!-- This is the code from a tutorial on my tiny YouTube channel: https://www.youtube.com/watch?v=ekI7vjkFrGA -->
+  <div id="homeScreen" class="d-flex justify-content-center align-items-center">
+    <div class="text-center">
+      <img src="assets/sharklogo.jpg" alt="" />
+      <h1>Portfolio</h1>
+      <h2>Phuc Le</h2>
+      <a href="introduce.html" id="startBtn">Press start</a>
     </div>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-      crossorigin="anonymous"
-    ></script>
-    <script src="js/global.js"></script>
-    <script>
-      const startBtnDom = document.getElementById("startBtn");
-      startBtnDom.addEventListener("click", function (e) {
-        e.preventDefault();
-        console.log(document.documentElement);
-        changePage(e.target.getAttribute("href"));
-      });
-    </script>
-  </body>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+  <script src="js/global.js"></script>
+  <script>
+    const startBtnDom = document.getElementById("startBtn");
+    startBtnDom.addEventListener("click", function (e) {
+      e.preventDefault();
+      console.log(document.documentElement);
+      changePage(e.target.getAttribute("href"));
+    });
+  </script>
+</body>
+
 </html>
 <!-- todo
+- [ ] Hide all conversation when open menu
 - [-] controller
 - [ ] Menu
    + [x] Menu interact by keyboard
@@ -90,6 +78,10 @@ DOING:
 [ ] - Create All Menus page
 [ ] - Create tutorial Page
 [ ] - Create instruction section
+[ ] - Handle esc button
+[ ] - Add menu button
+
+
 IDEA:
 - Have a menu to chose game to play
   + Pokemon

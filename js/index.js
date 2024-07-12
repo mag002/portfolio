@@ -248,6 +248,9 @@ const characterEvents = {
       }
     });
   },
+  Escape: function () {
+    openMenu(listMenu.MAIN_MENU);
+  },
   stopMoving: function () {
     // e = e || window.event;
     if (mouseInterval) {
@@ -267,6 +270,9 @@ const mainMenuEvents = {
     let _currentItem = currentMenu.currentItem;
     currentMenu.items[_currentItem].click();
   },
+  Escape: function () {
+    clearMenu();
+  },
   setCurrentItem: function (indexToSet) {
     if (indexToSet >= currentMenu.items.length || indexToSet < 0) {
       return;
@@ -276,6 +282,13 @@ const mainMenuEvents = {
     }
     currentMenu.currentItem = indexToSet;
     currentMenu.items[indexToSet].classList.add("selected");
+  },
+};
+
+const subMenuEvents = {
+  Escape: function () {
+    console.log("+++IN");
+    switchMenu(listMenu.MAIN_MENU);
   },
 };
 
@@ -298,6 +311,8 @@ window.onresize = function () {
   drawCanvas();
   movingCanvas();
 };
+
+// ** HANDLE CHARACTERS AND MENU MOVING DIRECTION
 document.addEventListener("keydown", (e) => {
   e = e || window.event;
   movingDirection = e.code;
@@ -309,48 +324,59 @@ document.addEventListener("keydown", (e) => {
       "ArrowRight",
       "Enter",
       "Shift",
-      "Esc",
+      "Escape",
       "Space",
     ].indexOf(movingDirection) > -1
   ) {
     e.preventDefault();
-    console.log(currentMenu.key);
     switch (currentMenu.key) {
       case listMenu.MAIN_MENU.key: {
-        if (["ArrowUp", "ArrowDown", "Space"].indexOf(movingDirection) > -1) {
+        if (
+          ["ArrowUp", "ArrowDown", "Space", "Escape"].indexOf(movingDirection) >
+          -1
+        ) {
           mainMenuEvents[movingDirection]();
         }
         break;
       }
-      default: {
-        characterEvents[movingDirection]();
+      case listMenu.EXPERIENCE_MENU.key: {
+        if (subMenuEvents[movingDirection]) {
+          subMenuEvents[movingDirection]();
+        }
         break;
+      }
+      default: {
+        if (isEmptyObject(currentMenu)) {
+          characterEvents[movingDirection]();
+          break;
+        }
       }
     }
   }
 });
+// ** CHARACTER STOP MOVING HANDLING
 document.addEventListener("keyup", (e) => {
   // e = e || window.event;
   // mainCharactorDOM.classList.remove("moving");
   characterEvents.stopMoving(e);
 });
 
-// DRAW
+// ** DRAW Canvas
 ctx = canvasDOM.getContext("2d");
 canvasDOM.setAttribute("width", defaultSquare * currentMap.size[0]);
 canvasDOM.setAttribute("height", defaultSquare * currentMap.size[1]);
 ctx.fillStyle = "#00ff00";
 ctx.strokeStyle = "#ff0000";
-//draw X
-// draw grid
+// ** Draw grid
 const drawGrid = () => {
+  // ** Draw X
   for (i = 0; i <= currentMap.size[1]; i++) {
     ctx.beginPath();
     ctx.moveTo(0, i * defaultSquare);
     ctx.lineTo(defaultSquare * currentMap.size[1], i * defaultSquare);
     ctx.stroke();
   }
-  // draw Y
+  // ** Draw Y
   for (i = 0; i <= currentMap.size[1]; i++) {
     ctx.beginPath();
     ctx.moveTo(i * defaultSquare, 0);
@@ -358,7 +384,7 @@ const drawGrid = () => {
     ctx.stroke();
   }
 };
-// draw character
+// ** Draw character
 const drawCharacter = (character) => {
   ctx.beginPath();
   ctx.arc(
@@ -378,14 +404,14 @@ const drawCharacter = (character) => {
     drawNPCImage(character);
   }
 
-  // Show NPC talk
+  // ** Show NPC talk
   if (character.isNear) {
     ctx.beginPath();
     ctx.arc(character.x, character.y, 10, 0, 2 * Math.PI);
     ctx.stroke();
   }
 };
-// draw NPCs
+// ** Draw NPCs
 const drawNPCs = () => {
   const { NPCs } = currentMap;
   NPCs.forEach((npc) => {
@@ -410,18 +436,18 @@ const drawCanvas = () => {
   ctx.clearRect(0, 0, canvasDOM.width, canvasDOM.height);
   // draw drid
   // drawGrid();
-  // draw character position
+  // ** Draw character position
   canvasDOM.style.backgroundImage = `url(assets/${currentMap.source})`;
   canvasDOM.style.backgroundSize = "cover";
   // drawCharacter(character);
-  // draw NPCs
+  // ** Draw NPCs
   drawNPCs();
   // drawUnmoveZone();
 };
 
 // MAIN
 
-// Draw NPC chatbox
+// ** Draw NPC chatbox
 const drawChatBox = (character) => {
   const chatBoxLeft = character.x;
   const chatBoxTop = character.y - defaultSquare;
@@ -479,7 +505,7 @@ const switchMenu = (menu) => {
 };
 
 function main() {
-  // openMenu(listMenu.MAIN_MENU);
+  openMenu(listMenu.MAIN_MENU);
   const { NPCs } = currentMap;
   // character.x = defaultSquare / 2;
   // character.y = defaultSquare / 2;
@@ -516,7 +542,7 @@ window.mobileCheck = function () {
   return check;
 };
 window.onload = function () {
-  //Add event for controllers
+  // ** Add event for controllers
   bodyDOM.classList.add("showUp");
   var md = window.mobileCheck();
   for (let i = 0; i < controllerBtnDOMs.length; i++) {
