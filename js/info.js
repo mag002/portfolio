@@ -3,17 +3,20 @@ const INFO = {
   age: "1997", //Your birth year => auto update
   location: "Hochiminh city",
   country: "Vietnam",
-  phone: "+84921805325",
+  phone: "+84792180325",
   email: "lehongphuc7384@gmail.com",
   address: "Hochiminh City",
   gender: "male",
-  linkedIn: "https://www.linkedin.com/in/le-phuc-169538173/",
+  linkedIn: "https://www.linkedin.com/in/patrickle7394/",
   github: "https://github.com/mag002",
-  objective: `I have a Bachelor of Software Engineering with 3 years of software development experience.My strong skills 
-    include JavaScript (include ReactJS, AngularJS, NodeJS). I’m pretty good at MySQL, and MongoDB too.
-    I’m experienced in working with multiple kinds of projects but I am strong at streaming video platforms (video
-    call, live streaming, ..)
-    After working on many projects with a variety of libraries, I still enjoy working with vanilla JS`,
+  // objective: `I have a Bachelor of Software Engineering with 3 years of software development experience.My strong skills
+  //   include JavaScript (include ReactJS, AngularJS, NodeJS). I’m pretty good at MySQL, and MongoDB too.
+  //   I’m experienced in working with multiple kinds of projects but I am strong at streaming video platforms (video
+  //   call, live streaming, ..)
+  //   After working on many projects with a variety of libraries, I still enjoy working with vanilla JS`,
+  ojective: `I am a versatile professional with a dual role as a website developer and technical consultant. In my current position, I specialize in web development, particularly in app creation, for NAB. My expertise in this role extends to building and developing applications to meet the bank's digital needs.
+  My journey in the tech world has been enriched by my role as a technical consultant. I've also lent my expertise to projects involving websites dedicated to chatbot technology and biotechnology, where I provide guidance and oversee all technical aspects.
+  With a wealth of experience, I'm here to ensure excellence and innovation in every project, whether it's in my capacity as a developer or a consultant. Let's work together to bring your vision to life.`,
   education: "",
   experience: [
     {

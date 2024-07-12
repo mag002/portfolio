@@ -196,6 +196,8 @@ canvas {
   transform: translate(0px, 0px);
 }
 .controller_right .button_ctn {
+  max-width: 60px;
+  max-height: 60px;
   width: calc(50vw / 9);
   height: calc(50vw / 9);
   padding: 5%;
@@ -239,9 +241,11 @@ canvas {
 
 /*  Game */
 #root {
-  min-width: 100%;
   min-height: 100vh;
   background: black;
+  max-width: 512px;
+  margin: auto;
+  border: 1px solid white;
 }
 #mapContainer {
   width: 100%;
